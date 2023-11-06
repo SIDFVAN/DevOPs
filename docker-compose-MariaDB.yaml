@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:10.4 
+    container_name: db
+    environment:
+      - ACCEPT_EULA=Y
+      - MYSQL_ROOT_PASSWORD=mypass
+    ports:
+      - "3306:3306"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    environment:
+      - DOTNET_ConnectionStrings__SqlDatabase=Server=db;PORT=3306;Database=sports;UID=root;PWD=mypass;
+    ports:
+        - "8080:80"
+
+ 
+
+

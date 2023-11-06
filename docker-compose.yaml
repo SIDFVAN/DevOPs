@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest 
+    container_name: db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyStrongPassword123%
+    ports:
+      - "1433:1433"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    environment:
+      - DOTNET_ConnectionStrings__SqlDatabase=Server=db,1433;Initial Catalog=sports;User Id=sa;Password=MyStrongPassword123%;
+    ports:
+        - "8080:80"
+
+ 
+
+

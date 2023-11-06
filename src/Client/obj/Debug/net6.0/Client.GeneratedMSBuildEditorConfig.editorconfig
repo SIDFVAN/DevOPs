@@ -1,0 +1,77 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = Client
+build_property.RootNamespace = Client
+build_property.ProjectDir = C:\Hogent\p3ops-demo-app\p3ops-demo-app\src\docker\AppServer\src\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Hogent\p3ops-demo-app\p3ops-demo-app\src\docker\AppServer\src\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Layout/AccessControl.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEFjY2Vzc0NvbnRyb2wucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Layout/Header.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEhlYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Categories/Components/CategoryInputSelect.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ2F0ZWdvcmllc1xDb21wb25lbnRzXENhdGVnb3J5SW5wdXRTZWxlY3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Components/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ29tcG9uZW50c1xDcmVhdGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Components/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ29tcG9uZW50c1xFZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Components/Pager.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ29tcG9uZW50c1xQYWdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Components/ProductFilters.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ29tcG9uZW50c1xQcm9kdWN0RmlsdGVycy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Detail.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcRGV0YWlsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcX0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Ordering/Components/ShoppingCart.razor]
+build_metadata.AdditionalFiles.TargetPath = T3JkZXJpbmdcQ29tcG9uZW50c1xTaG9wcGluZ0NhcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-qvmm4sjxn8
+
+[C:/Hogent/p3ops-demo-app/p3ops-demo-app/src/docker/AppServer/src/Client/Products/Components/ProductListItem.razor]
+build_metadata.AdditionalFiles.TargetPath = UHJvZHVjdHNcQ29tcG9uZW50c1xQcm9kdWN0TGlzdEl0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hhj31rrsx2

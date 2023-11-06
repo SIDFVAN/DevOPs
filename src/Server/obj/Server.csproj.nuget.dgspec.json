@@ -1,0 +1,479 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Server\\Server.csproj": {}
+  },
+  "projects": {
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\Client.csproj",
+        "projectName": "Client",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Append.Blazor.Sidepanel": {
+              "target": "Package",
+              "version": "[6.3.3, )"
+            },
+            "Blazored.FluentValidation": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.7.1, )"
+            },
+            "Microsoft.AspNetCore.Components.Authorization": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+              "version": "[6.0.12, 6.0.12]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Ardalis.GuardClauses": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\Persistence.csproj",
+        "projectName": "Persistence",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "EntityFrameworkCore.Triggered": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Server\\Server.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Server\\Server.csproj",
+        "projectName": "Server",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Server\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\Client.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Client\\Client.csproj"
+              },
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\Services.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\Services.csproj"
+              },
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.7.1, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Server": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Domain\\Domain.csproj"
+              },
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\Persistence.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Persistence\\Persistence.csproj"
+              },
+              "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj",
+        "projectName": "Shared",
+        "projectPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
+        "outputPath": "C:\\Hogent\\p3ops-demo-app\\p3ops-demo-app\\src\\docker\\AppServer\\src\\Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.7.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
