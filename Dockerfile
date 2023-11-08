@@ -16,6 +16,7 @@ COPY ["src/Shared/Shared.csproj", "src/Shared/"]
 COPY ["src/Services/Services.csproj", "src/Services/"]
 COPY ["src/Domain/Domain.csproj", "src/Domain/"]
 COPY ["src/Persistence/Persistence.csproj", "src/Persistence/"]
+RUN dotnet test
 RUN dotnet restore "src/Server/Server.csproj"
 COPY . .
 WORKDIR "/src/src/Server"
