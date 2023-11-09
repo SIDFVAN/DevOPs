@@ -1,5 +1,6 @@
 # DevOps 2023 - 2024 Web
 
+<<<<<<< HEAD
 ## Group
 
 - DevOps-2223-T01
@@ -33,3 +34,6 @@ List of team members responsible for operations:
 - Database: ...
 - ...
 - ...
+=======
+# First Automatic build and deploy
+>>>>>>> 34e1cf22d0a682ebc167b7a95550fd87b7ffd31c
