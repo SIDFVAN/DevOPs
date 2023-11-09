@@ -1,47 +1,41 @@
-using Client.Extensions;
-using Shared.Products;
-using System.Net.Http;
+﻿using Blanche.Shared.Products;
+using System.Net;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
-namespace Client.Products
+namespace Blanche.Client.Products
 {
     public class ProductService : IProductService
     {
         private readonly HttpClient client;
-        private const string endpoint = "api/product";
-        public ProductService(HttpClient client)
+        private const string endPoint = "api/product";
+        public ProductService(HttpClient httpClient)
         {
-            this.client = client;
+            client = httpClient;
         }
-        public async Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request)
+        public async Task<int> CreateAsync(ProductDto productDTO)
         {
-            var response = await client.PostAsJsonAsync(endpoint, request);
-            return await response.Content.ReadFromJsonAsync<ProductResponse.Create>();
-        }
-
-        public async Task DeleteAsync(ProductRequest.Delete request)
-        {
-            await client.DeleteAsync($"{endpoint}/{request.ProductId}");
+            var response = await client.PostAsJsonAsync(endPoint, productDTO);
+            return await response.Content.ReadFromJsonAsync<int>();
         }
 
-        public async Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request)
+        public async Task DeleteAsync(int productId)
         {
-            var response = await client.GetFromJsonAsync<ProductResponse.GetDetail>($"{endpoint}/{request.ProductId}");
-            return response;
+            await client.DeleteAsync($"{endPoint}/{productId}");
         }
 
-        public async Task<ProductResponse.GetIndex> GetIndexAsync(ProductRequest.GetIndex request)
+        public Task EditAsync(ProductDto productDTO)
         {
-            var queryParameters = request.GetQueryString();
-            var response = await client.GetFromJsonAsync<ProductResponse.GetIndex>($"{endpoint}?{queryParameters}");
-            return response;
+            throw new NotImplementedException();
         }
 
-        public async Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request)
+        public Task<IEnumerable<ProductDto>> GetAll()
         {
-            var response = await client.PutAsJsonAsync(endpoint, request);
-            return await response.Content.ReadFromJsonAsync<ProductResponse.Edit>();
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductDto> GetById(int productId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

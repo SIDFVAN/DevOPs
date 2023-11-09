@@ -1,0 +1,21 @@
+﻿@using MudBlazor;
+@using Blanche.Shared.Formulas
+
+<MudCard style="width: 400px; height: 400px;">
+    <MudCardMedia Image="@Image" Height="200" />
+    <MudCardContent Class="text-center">
+        <MudText Typo="Typo.h5">@Props?.Name</MudText>
+        <MudText Typo="Typo.body2">@Props?.Description</MudText>
+        <MudText Typo="Typo.body2">vanaf €@Props?.Price</MudText>
+    </MudCardContent>
+    <MudCardActions Class="justify-content-around">
+        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="pricing/detail">Meer informatie</MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/availability">Kies</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter] public FormulaDto? Props { get; set; }
+    [Parameter] public string? Image { get; set; }
+}
+

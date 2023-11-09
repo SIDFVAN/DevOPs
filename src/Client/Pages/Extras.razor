@@ -1,0 +1,115 @@
+﻿@page "/extras"
+@using System.Net.Http
+@inject HttpClient HttpClient
+@using MudBlazor;
+@using Blanche.Shared.Products
+@using Blanche.Shared.Reservations;
+
+<PageTitle>Extras</PageTitle>
+
+<div class="nav-menu">
+    <NavMenu />
+</div>
+ 
+<img class="bg-img" src="/images/homePage/4.jpg" alt="Homepage background" />
+  
+<MudPaper Elevation=2 Class="d-flex flex-row mt-6" Style="padding:10px">
+    <MudText Typo="Typo.h5" GutterBottom="true">Extra's</MudText>
+    <MudGrid>
+
+        @if (ProductList.Any())
+        {
+            <MudItem xs="12">
+
+                @foreach (ProductDto product in ProductList)
+                {
+                    <div class="col-sm-3 product">
+                        <h3 class="h3">@product.Name</h3>
+                        <a href="/productdetail/@product.Id"><img src="@product.ImageUrl" alt="@product.Name" class="col-sm-3"></a>
+                        <p>@product.Description</p>
+                        <p>Prijs: @product.Price.ToString("C")</p>
+
+                        <div class="from-group row">
+                            <label class="form-label" for="quantity" id="quantity">Select Quantity</label>
+                            <select class="form-control" id="quantity">
+                                @*bind="selectedQuantities[product.Id]"*@
+                                @for (int index = 0; index <= product.Quantity; index += product.MinimumUnits)
+                                {
+                                    <option value="@index">@index</option>
+                                }
+                            </select>
+                        </div>
+                        <MudButton Class="d-flex justify-content-end" hidden="@(product!.IsAdded ? true : false)" @onclick="() => AddToReservation(product, selectedQuantities[product.Quantity])">Toevoegen aan winkelwagen</MudButton>
+                        <MudButton Class="d-flex justify-content-end" hidden="@(product!.IsAdded ? false : true)" @onclick="() => RemoveFromReservation(product.Id)">Verwijderen uit winkelwagen</MudButton>
+
+                    </div>
+                }
+
+
+            </MudItem>
+
+            <MudItem xs="12" Class="d-flex justify-content-end">
+                <MudButton Href="/checkout" Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary"
+                           Size="Size.Large" Class="mt-8 d-flex ">Volgende stap</MudButton>
+            </MudItem>
+        }
+    </MudGrid>
+</MudPaper>
+
+@code {
+
+    private List<ProductDto> ProductList = new(){
+        new ProductDto {Id = Guid.NewGuid(), Description = "Voor de sfeer en gezelligheid", MinimumUnits=1, Name="Vuurschaal", Quantity = 5, ImageUrl = "images/products/img_vuurschaal.jpg" },
+        new ProductDto {Id = Guid.NewGuid(), Description = "Om een lekker stukje vlees of vis te bakken", MinimumUnits=1, Name="Barbecue", Quantity = 5, ImageUrl = "images/products/img_barbecue.jpg" },
+        new ProductDto {Id = Guid.NewGuid(), Description = "Handige en stevige tafels voor al uw feesten", MinimumUnits=1, Name="Tafel", Quantity = 5, ImageUrl = "images/products/img_tafel.jpg" },
+        new ProductDto {Id = Guid.NewGuid(), Description = "Voor extra sfeer en gezelligheid 's avonds", MinimumUnits=1, Name="Verlichting", Quantity = 5, ImageUrl = "images/products/img_verlichting.jpg" },
+        new ProductDto {Id = Guid.NewGuid(), Description = "Niet genoeg glazen, we hebben er!", MinimumUnits=6, Name="Glazen tripel", Quantity = 36, ImageUrl = "images/products/img_glazen.jpg" },
+    };
+    private List<ReservationLineDTO> ReservationLines = new();
+    private Dictionary<int, int> selectedQuantities = new Dictionary<int, int>();
+    //private OrderItemDTO Model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //ProductList = await GetProducts();
+        //ProductList.ForEach(e => Console.WriteLine(e.ToString()));
+        //Model = new();
+    }
+
+    public void AddToReservation(ProductDto Product, int Quantity)
+    {
+        ReservationLineDTO orderItem = ReservationLineDTO.Builder()
+        .WithProduct(Product)
+        .WithQuantity(Quantity)
+        .Build();
+
+        ReservationLines.Add(orderItem);
+        Product.IsAdded = true;
+        //await HttpClient.PostAsJsonAsync<OrderItemDTO>("");
+    }
+
+    public void RemoveFromReservation(Guid ProductId)
+    {
+        ReservationLineDTO? itemDTO = ReservationLines.Find(e => e.Product.Id == ProductId);
+        if (itemDTO != null)
+            ReservationLines.Remove(itemDTO);
+    }
+
+    public async Task SaveOrderList()
+    {
+        if (ReservationLines.Count != 0)
+            await HttpClient.PostAsJsonAsync<List<ReservationLineDTO>>("", ReservationLines);
+    }
+
+    async Task<List<ProductDto>> GetProducts()
+    {
+        
+        return await HttpClient.GetFromJsonAsync<List<ProductDto>>("Product/List");
+        @*List<ProductWithQuantity> list = new();
+        foreach(ProductDTO product in products)
+        {
+            list.Add(new ProductWithQuantity(product));
+        }
+        return list;*@
+    }
+}

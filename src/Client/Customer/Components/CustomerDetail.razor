@@ -1,0 +1,51 @@
+﻿@using MudBlazor
+
+<EditForm EditContext="EditContext" id="customerForm">
+
+    <MudContainer Class="mt-5 d-flex justify-center">
+        <MudItem xs="12" MaxWidth="MaxWidth.Medium">
+
+            <MudText Typo="Typo.h5" GutterBottom="true">Gegevens klant</MudText>
+            <MudGrid>
+                <ObjectGraphDataAnnotationsValidator />
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Customer.FirstName" Label="Voornaam" />
+                    <ValidationMessage For="@(() => Customer.FirstName)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Customer.LastName" Label="Naam" />
+                    <ValidationMessage For="@(() => Customer.LastName)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Customer.PhoneNumber" Label="Mobile Nummer" />
+                    <ValidationMessage For="@(() => Customer.PhoneNumber)" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Customer.Email" Label="Email" />
+                    <ValidationMessage For="@(() => Customer.Email)" />
+                </MudItem>
+                <MudItem xs="10">
+                    <MudTextField @bind-Value="Customer.CustomerAddress.Street" Label="Straat" />
+                    <ValidationMessage For="@(() => Customer.CustomerAddress.Street)" />
+                </MudItem>
+                <MudItem xs="2">
+                    <MudTextField @bind-Value="Customer.CustomerAddress.HouseNumber" Label="Nr" />
+                    <ValidationMessage For="@(() => Customer.CustomerAddress.HouseNumber)" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudTextField @bind-Value="Customer.CustomerAddress.PostalCode" Label="Post Code" />
+                    <ValidationMessage For="@(() => Customer.CustomerAddress.PostalCode)" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudTextField @bind-Value="Customer.CustomerAddress.City" Label="Stad" />
+                    <ValidationMessage For="@(() => Customer.CustomerAddress.City)" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudTextField @bind-Value="Customer.CustomerAddress.Country" Label="Land" />
+                    <ValidationMessage For="@(() => Customer.CustomerAddress.Country)" />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudContainer>
+</EditForm>
+ 

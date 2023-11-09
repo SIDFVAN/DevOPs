@@ -1,0 +1,29 @@
+﻿@using Blanche.Shared.Formulas
+@using Blanche.Shared.Customers;
+@*@using System.Net.Http
+    @inject HttpClient HttpClient*@
+
+
+@*<div class="d-flex flex-row justify-content-around my-auto">
+    <FormulaCard Image="@image1" Props="@formule1" />
+    <FormulaCard Image="@image2" Props="@formule2" />
+    <FormulaCard Image="@image3" Props="@formule3" />
+</div>
+
+@code {
+    //Hier komt de lijst die vd db zal komen we starten met hardcoded klasse voor met de http request te werken
+    //List<FormuleDTO> Formules = new List<FormuleDTO>();
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    Formules = await HttpClient.GetFromJsonAsync<List<FormuleDTO>>("/api/formules");
+    //}
+
+    private CustomerDto formule1 = new CustomerDto("Gewoon Blanche", "Huren foodtruck", 250);
+    private string image1 = "/images/homePage/4.jpg";
+    private CustomerDto formule2 = new CustomerDto("Brew Buggy", "Huren foodtruck, bier naar keuze", 550);
+    private string image2 = "/images/homePage/8.jpg";
+    private CustomerDto formule3 = new CustomerDto("Bier & Bite Bonanza", "Huren foodtruck, bier naar keuze en Hamburger Barbecue", 750);
+    private string image3 = "/images/background/1.jpg";*@
+
+}

@@ -16,7 +16,9 @@ services:
       dockerfile: Dockerfile
     container_name: web
     environment:
-      - DOTNET_ConnectionStrings__SqlDatabase=Server=db,1433;Initial Catalog=sports;User Id=sa;Password=MyStrongPassword123%;
+      - DOTNET_ConnectionStrings__SqlDatabase=Server=db,1433;Initial Catalog=blanche;User Id=sa;Password=MyStrongPassword123%;
+      - DOTNET_ENVIRONMENT=Production
+      - DOTNET_LocalDbPassword=MyStrongPassword123%
     ports:
         - "80:80"
 

@@ -10,22 +10,21 @@ ENV DOTNET_ENVIRONMENT="Production"
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Server/Server.csproj", "src/Server/"]
-COPY ["src/Client/Client.csproj", "src/Client/"]
-COPY ["src/Shared/Shared.csproj", "src/Shared/"]
-COPY ["src/Services/Services.csproj", "src/Services/"]
-COPY ["src/Domain/Domain.csproj", "src/Domain/"]
-COPY ["src/Persistence/Persistence.csproj", "src/Persistence/"]
-RUN dotnet restore "src/Server/Server.csproj"
+COPY ["src/Server/Blanche.Server.csproj", "src/Server/"]
+COPY ["src/Client/Blanche.Client.csproj", "src/Client/"]
+COPY ["src/Shared/Blanche.Shared.csproj", "src/Shared/"]
+COPY ["src/Domain/Blanche.Domain.csproj", "src/Domain/"]
+COPY ["src/Mappers/Blanche.Mappers.csproj", "src/Persistence/"]
+RUN dotnet restore "src/Server/Blanche.Server.csproj"
 COPY . .
 RUN dotnet test
 WORKDIR "/src/src/Server"
-RUN dotnet build "Server.csproj" -c Release -o /app/build
+RUN dotnet build "Blanche.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Blanche.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Server.dll"]
+ENTRYPOINT ["dotnet", "Blanche.Server.dll"]

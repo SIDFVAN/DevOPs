@@ -1,0 +1,105 @@
+﻿@using MudBlazor;
+@using Blanche.Client.Reservations.Components;
+@using Blanche.Client.Customer.Components;
+
+
+@if (requestOk)
+{
+    <div class="alert alert-success mt-3">You submitted a valid form</div>
+}
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger mt-3">@ErrorMessage</div>
+}
+
+<MudPaper Elevation=2 Class="d-flex flex-row mt-6" Style="padding:10px">
+
+    <MudGrid>
+
+        <MudItem xs="6">
+            <CustomerDetail Customer="reservationDto?.Customer" @ref="customerDetail"></CustomerDetail>
+        </MudItem>
+        <MudItem xs="6">
+            <MudContainer Class="mt-5 justify-center">
+
+                <MudText Typo="Typo.h5" GutterBottom="true">Overzicht aanvraag</MudText>
+
+                <div class="mt-auto">
+
+                    <MudDivider />
+                    <div class="d-flex pa-4">
+                        <MudText Class="">Formule: </MudText>
+                        <MudText Class="ml-auto"><b>@reservationDto?.Formula?.Name</b></MudText>
+                        <MudText Class="ml-auto"><b>@string.Format("{0:F2}", reservationDto?.Formula.Price)</b></MudText>
+                        <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
+                    </div>
+
+                    @if (@reservationDto.Items.Any())
+                    {
+                        <MudList Clickable="true">
+                            <MudListItem Text="Extra's: " InitiallyExpanded="false">
+                                <NestedList>
+                                    @foreach (var item in @reservationDto.Items)
+                                    {
+                                        <MudListItem>
+                                            <div class="d-flex">
+                                                <MudText>@item.Product?.Name</MudText>
+                                                <MudText Class="ml-auto">@item.Product?.Description</MudText>
+                                                <MudText Inline="true" Class="ml-auto">
+                                                    @string.Format("{0:F2}", item.Product?.Price * item.Quantity)
+                                                </MudText>
+                                                <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
+                                                <MudItem Class="ml-auto" Clickable="true" @onclick="_ => reservationDto.Items.Remove(item)">
+                                                    <MudIcon Icon="@Icons.Material.Filled.DeleteForever" />
+                                                </MudItem>
+                                            </div>
+
+                                        </MudListItem>
+                                    }
+                                </NestedList>
+                            </MudListItem>
+                        </MudList>
+
+                    }
+                    else
+                    {
+                        <div class="d-flex pa-4">
+                            <MudText Class="">Extra's: </MudText>
+                            <MudText Class="ml-auto"><b>Geen Extra's</b></MudText>
+                        </div>
+                    }
+
+                    <MudDivider DividerType="DividerType.Inset" Light=false Style="color:black" />
+                    <div class="d-flex pa-4">
+                        <MudText Class=""><b>Total:</b></MudText>
+                        <MudText Class="ml-auto"><b>@string.Format("{0:F2}", reservationDto.TotalPrice)</b></MudText>
+                        <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
+                    </div>
+                    <div class="d-flex pa-4">
+                        <MudText Class="">BTW:</MudText>
+                        <MudText Class="ml-auto"><b>21%</b></MudText>
+                    </div>
+                    <div class="d-flex pa-4">
+                        <MudText Class="">ex. BTW:</MudText>
+                        <MudText Class="ml-auto"><b>@string.Format("{0:F2}", reservationDto.SubTotalPrice)</b></MudText>
+                        <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
+                    </div>
+
+                </div>
+
+            </MudContainer>
+        </MudItem>
+
+
+        <MudItem xs="12" Class="d-flex justify-content-end">
+            <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary"
+                       OnClick="SetReservationAsync"
+                       Size="Size.Large" Class="mt-8 d-flex ">Vraag offerte</MudButton>
+        </MudItem>
+
+    </MudGrid>
+
+</MudPaper>
+
+

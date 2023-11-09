@@ -1,30 +1,87 @@
-using Ardalis.GuardClauses;
-using Domain.Common;
-using Domain.Orders;
-using System.Collections.Generic;
+﻿using Blanche.Domain.Common;
+using Blanche.Domain.Reservations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Customers
+namespace Blanche.Domain.Customers
 {
     public class Customer : Entity
     {
-        public CustomerName Name { get; private set; }
-        public Address Address { get; private set; }
-        public List<Order> Orders { get; set; }
+        public string FirstName { get; set; } = default!;
+        public string LastName { get; set; } = default!;
+        public string PhoneNumber { get; set; } = default!;
 
-        private Customer() { }
+        [NotMapped]
+        public EmailAddress Email { get; set; } = default!;
+        
+        public Address CustomerAddress { get; set; } = default!;
+        private readonly List<Reservation> reservations = new();
+        public IReadOnlyCollection<Reservation> Reservations => reservations.AsReadOnly();
 
-        public Customer(CustomerName name, Address address)
+        public Customer() { }
+
+        public Customer(string firstname, string lastname, string phoneNumber, Address customerAddress, EmailAddress email)
         {
-            Name = Guard.Against.Null(name, nameof(name));
-            Address = Guard.Against.Null(address, nameof(address));
-            Orders = new List<Order>();
+            FirstName = firstname;
+            LastName = lastname;
+            CustomerAddress = customerAddress;
+            Email = email;
         }
 
-        public Order PlaceOrder(Cart cart, DeliveryDate deliveryDate, bool hasGiftWrapping, Address shippingAddress)
+        public class CustomerBuilder
         {
-            var order = new Order(cart, deliveryDate, hasGiftWrapping, this, shippingAddress);
-            Orders.Add(order);
-            return order;
+            private string? FirstName { get; set; }
+            private string? LastName { get; set; }
+            private string? PhoneNumber { get; set; }
+            private EmailAddress? Email { get; set; }
+            private Address? Address { get; set; }
+
+            public CustomerBuilder WithFirstName(string firstName)
+            {
+                FirstName = firstName;
+                return this;
+            }
+
+            public CustomerBuilder WithLastName(string lastName)
+            {
+                LastName = lastName;
+                return this;
+            }
+
+            public CustomerBuilder WithPhoneNumber(string phone)
+            {
+                PhoneNumber = phone;
+                return this;
+            }
+
+            public CustomerBuilder WithEmail(EmailAddress emailAddress)
+            {
+                Email = emailAddress;
+                return this;
+            }
+
+            public CustomerBuilder WithAddress(Address address)
+            {
+                Address = address;
+                return this;
+            }
+
+            public Customer Build()
+            {
+                return new Customer
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    PhoneNumber = PhoneNumber,
+                    Email = Email,
+                    CustomerAddress = Address
+                };
+            }
         }
+
+        public static CustomerBuilder Builder()
+        {
+            return new CustomerBuilder();
+        }
+
     }
-}
+} 

@@ -1,0 +1,38 @@
+﻿@page "/productdetail/{productId:int}"
+@using System.Net.Http
+@inject HttpClient HttpClient
+@using Blanche.Shared.Products
+
+<PageTitle>Product details</PageTitle>
+
+<div class="nav-menu">
+    <NavMenu />
+</div>
+
+<h3>Product Detail</h3>
+
+<div class="d-inline-block">
+    <h2 class="h2">@Product.Name</h2>
+    <p>@Product.Description</p>
+    @foreach(string url in Product.DetailUrlImages)
+    {
+        <div><img href="@url" class="col-3" /></div>
+    }
+</div>
+
+@code {
+    [Parameter] public int ProductId { get; set; }
+    private ProductDto Product { get; set; } = new();
+
+    //private ShoppingCart ShoppingCart => ShoppingCartService.ShoppingCart;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Product = await GetProduct(ProductId);
+    }
+
+    async Task<ProductDto> GetProduct(int productId)
+    {
+        return await HttpClient.GetFromJsonAsync<ProductDto>($"api/products/{productId}");
+    }
+}

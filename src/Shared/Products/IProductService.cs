@@ -1,13 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Products
+namespace Blanche.Shared.Products
 {
     public interface IProductService
     {
-        Task<ProductResponse.GetIndex> GetIndexAsync(ProductRequest.GetIndex request);
-        Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request);
-        Task DeleteAsync(ProductRequest.Delete request);
-        Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request);
-        Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request);
+        Task<IEnumerable<ProductDto>> GetAll();
+        Task<ProductDto> GetById(int productId);
+        Task<int> CreateAsync(ProductDto productDTO);
+        Task EditAsync(ProductDto productDTO);
+        Task DeleteAsync(int productId);
+
     }
 }

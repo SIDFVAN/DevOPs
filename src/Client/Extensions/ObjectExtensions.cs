@@ -1,11 +1,10 @@
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 
-namespace Client.Extensions
+namespace Blanche.Client.Extensions
 {
-    public static class ObjectExtensions
-    {
-        public static string GetQueryString(this object obj)
+	public static class ObjectExtensions
+	{
+        public static string AsQueryString(this object obj)
         {
             var properties = from p in obj.GetType().GetProperties()
                              where p.GetValue(obj, null) != null
@@ -15,3 +14,4 @@ namespace Client.Extensions
         }
     }
 }
+

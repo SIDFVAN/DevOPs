@@ -1,49 +1,57 @@
-using Microsoft.AspNetCore.Mvc;
-using Shared.Products;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using Blanche.Shared.Products;
 
-namespace Server.Controllers
+namespace Blanche.Server.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController : ControllerBase
-    {
-        private readonly IProductService productService;
+	[ApiController]
+	[Route("api/[controller]")]
+	public class ProductController : Controller
+	{
+		private readonly IProductService _productService;
+		private readonly List<ProductDto> _products = new()
+		{
+			new ProductDto {Id = Guid.NewGuid(), Description = "Voor de sfeer en gezelligheid", MinimumUnits=1, Name="Vuurschaal", Quantity = 5, ImageUrl = "images/products/img_vuurschaal" },
+			new ProductDto {Id = Guid.NewGuid(), Description = "Om een lekker stukje vlees of vis te bakken", MinimumUnits=1, Name="Barbecue", Quantity = 5, ImageUrl = "images/products/img_barbecue" },
+			new ProductDto {Id = Guid.NewGuid(), Description = "Handige en stevige tafels voor al uw feesten", MinimumUnits=1, Name="tafel", Quantity = 5, ImageUrl = "images/products/img_tafel" },
+			new ProductDto {Id = Guid.NewGuid(), Description = "Voor extra sfeer en gezelligheid 's avonds", MinimumUnits=1, Name="Verlichting", Quantity = 5, ImageUrl = "images/products/img_verlichting" },
+			new ProductDto {Id = Guid.NewGuid(), Description = "Niet genoeg glazen, we hebben er!", MinimumUnits=6, Name="Glazen tripel", Quantity = 36, ImageUrl = "images/products/img_glazen" },
+		};
 
-        public ProductController(IProductService productService)
-        {
-            this.productService = productService;
-        }
-
+		public ProductController(IProductService productService)
+		{
+			_productService = productService;
+		}
 
         [HttpGet]
-        public Task<ProductResponse.GetIndex> GetIndexAsync([FromQuery] ProductRequest.GetIndex request)
-        {
-            return productService.GetIndexAsync(request);
-        }
+        public IActionResult Index()
+		{
+			return View();
+		}
 
-        [HttpGet("{ProductId}")]
-        public Task<ProductResponse.GetDetail> GetDetailAsync([FromRoute] ProductRequest.GetDetail request)
-        {
-            return productService.GetDetailAsync(request);
-        }
+		[HttpGet("{id}")]
+		public IActionResult Details(int id)
+		{
+			return View();
+		}
 
-        [HttpDelete("{ProductId}")]
-        public Task DeleteAsync([FromRoute] ProductRequest.Delete request)
-        {
-            return productService.DeleteAsync(request);
-        }
+		[HttpGet("List")]
+		public ActionResult List()
+		{
+			return Ok(_products);
+		}
 
-        [HttpPost]
-        public Task<ProductResponse.Create> CreateAsync([FromBody] ProductRequest.Create request)
-        {
-            return productService.CreateAsync(request);
-        }
+		[HttpPost]
+		public ActionResult Create(ProductDto productDTO)
+		{
+			// authentication required
+			return View(productDTO);
+		}
 
-        [HttpPut]
-        public Task<ProductResponse.Edit> EditAsync([FromBody] ProductRequest.Edit request)
-        {
-            return productService.EditAsync(request);
-        }
-    }
+		[HttpDelete("{id}")]
+		public IActionResult Delete(int id)
+		{
+			// authentication required
+			return View();
+		}
+	}
 }
