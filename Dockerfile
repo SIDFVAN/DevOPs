@@ -14,7 +14,7 @@ COPY ["src/Server/Blanche.Server.csproj", "src/Server/"]
 COPY ["src/Client/Blanche.Client.csproj", "src/Client/"]
 COPY ["src/Shared/Blanche.Shared.csproj", "src/Shared/"]
 COPY ["src/Domain/Blanche.Domain.csproj", "src/Domain/"]
-COPY ["src/Mappers/Blanche.Mappers.csproj", "src/Persistence/"]
+COPY ["src/Mappers/Blanche.Mappers.csproj", "src/Mappers/"]
 RUN dotnet restore "src/Server/Blanche.Server.csproj"
 COPY . .
 RUN dotnet test
