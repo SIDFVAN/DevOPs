@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  dbDVLP:
+  dbdvlp:
     image: mcr.microsoft.com/mssql/server:2022-latest 
     container_name: db
     environment:
@@ -10,7 +10,7 @@ services:
     ports:
       - "1433:1433"
 
-  webDVLP:
+  webdvlp:
     build:
       context: .
       dockerfile: Dockerfile
