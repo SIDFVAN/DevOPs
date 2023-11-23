@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: web
+    container_name: webdvlp
     environment:
       - DOTNET_ConnectionStrings__SqlDatabase=Server=db,1433;Initial Catalog=blanche;User Id=sa;Password=MyStrongPassword123%;
       - DOTNET_ENVIRONMENT=Production
