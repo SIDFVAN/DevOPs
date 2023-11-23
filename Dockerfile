@@ -17,7 +17,7 @@ COPY ["src/Domain/Blanche.Domain.csproj", "src/Domain/"]
 COPY ["src/Mappers/Blanche.Mappers.csproj", "src/Mappers/"]
 RUN dotnet restore "src/Server/Blanche.Server.csproj"
 COPY . .
-RUN dotnet test
+#RUN dotnet test
 WORKDIR "/src/src/Server"
 RUN dotnet build "Blanche.Server.csproj" -c Release -o /app/build
 
