@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  db:
+  dbDVLP:
     image: mcr.microsoft.com/mssql/server:2022-latest 
     container_name: db
     environment:
@@ -10,7 +10,7 @@ services:
     ports:
       - "1433:1433"
 
-  web:
+  webDVLP:
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,7 +20,7 @@ services:
       - DOTNET_ENVIRONMENT=Production
       - DOTNET_LocalDbPassword=MyStrongPassword123%
     ports:
-        - "80:80"
+        - "80:90"
 
  
 
