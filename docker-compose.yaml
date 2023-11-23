@@ -8,7 +8,7 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyStrongPassword123%
     ports:
-      - "1433:1444"
+      - "1444:1433"
 
   webdvlp:
     build:
@@ -20,7 +20,7 @@ services:
       - DOTNET_ENVIRONMENT=Production
       - DOTNET_LocalDbPassword=MyStrongPassword123%
     ports:
-        - "80:90"
+        - "90:80"
 
  
 
