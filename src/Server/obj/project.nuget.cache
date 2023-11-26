@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jPbMRgHYZmxVVkgJH1F0JPhs7XPGK/Ax44tckla6i5spyQRLQ6xU2NJYf+TsyXhMvSao6xWlhvkvc3FKkEMagg==",
+  "dgSpecHash": "gkZxkOnCjVX4WTyEUcJrSOwSIHRv2P2LyTAQte8XhpkvY/QGQ2XWXpo2xg4zvS6rnFTJhQ/XzWCCYMRnYeLv6A==",
   "success": true,
-  "projectFilePath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Server\\Blanche.Server.csproj",
+  "projectFilePath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Server\\Blanche.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\append.blazor.sidepanel\\6.3.3\\append.blazor.sidepanel.6.3.3.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\ardalis.guardclauses\\4.1.1\\ardalis.guardclauses.4.1.1.nupkg.sha512",

@@ -383,11 +383,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj",
+      "projectUniqueName": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj",
       "projectName": "Blanche.Shared",
-      "projectPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj",
+      "projectPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj",
       "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
-      "outputPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\obj\\",
+      "outputPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -3198,11 +3198,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Client\\Blanche.Client.csproj",
+      "projectUniqueName": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Client\\Blanche.Client.csproj",
       "projectName": "Blanche.Client",
-      "projectPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Client\\Blanche.Client.csproj",
+      "projectPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Client\\Blanche.Client.csproj",
       "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
-      "outputPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Client\\obj\\",
+      "outputPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3219,11 +3219,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Mappers\\Blanche.Mappers.csproj": {
-              "projectPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Mappers\\Blanche.Mappers.csproj"
+            "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Mappers\\Blanche.Mappers.csproj": {
+              "projectPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Mappers\\Blanche.Mappers.csproj"
             },
-            "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj": {
-              "projectPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj"
+            "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj": {
+              "projectPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj"
             }
           }
         }
