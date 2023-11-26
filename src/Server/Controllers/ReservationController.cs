@@ -17,11 +17,11 @@ namespace Blanche.Server.Controllers
 
         [SwaggerOperation("Creates a new reservation.")]
         [HttpPost]
-        [ProducesResponseType(typeof(ReservationDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ReservationDto> CreateReservationAsync(ReservationDto reservationDto)
+        public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
         {
             var reservation = await _reservationService.CreateReservationAsync(reservationDto);
             return reservation!;

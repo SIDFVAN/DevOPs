@@ -1,7 +1,12 @@
-﻿namespace Blanche.Shared.Customers
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Blanche.Shared.Customers
 {
 	public class EmailAddressDto
 	{
-		public string? Value { get; set; }
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string? Value { get; set; }
+		 
 	}
 }

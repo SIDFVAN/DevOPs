@@ -3,7 +3,7 @@ using Blanche.Shared.Customers;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using tests.Fakers.Customer;
 using Address = Blanche.Domain.Customers.Address;
-using Mappers.Customer;
+
 
 namespace tests.Mappers
 {
@@ -29,13 +29,16 @@ namespace tests.Mappers
         [MemberData(nameof(AddressTestData))]
         public void ToAddressDto_ShouldMapCorrectly(Address address)
         {
+            // Arrange
+            AddressMapper mapper = new AddressMapper();
+
             //  Act
-            AddressDto result = AddressMapperManual.MapToDto(address);
+            AddressDto result = mapper.MapToAddressDto(address);
 
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Street, address.Street);
-            Assert.AreEqual(result.HouseNumber, address.Number);
+            Assert.AreEqual(result.Number, address.Number);
             Assert.AreEqual(result.City, address.City);
             Assert.AreEqual(result.PostalCode, address.PostalCode);
             Assert.AreEqual(result.Country, address.Country);
@@ -44,17 +47,21 @@ namespace tests.Mappers
         [Theory]
         [MemberData(nameof(AddressDtoTestData))]
         public void ToAddress_ShouldMapCorrectly(AddressDto addressDto)
-        { 
+        {
+            // Arrange
+            AddressMapper mapper = new AddressMapper();
+
             // Act
-            Address result = AddressMapperManual.MapToEntity(addressDto);
+            Address result = mapper.MapToAddress(addressDto);
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.Street, addressDto.Street);
-            Assert.AreEqual(result.Number, addressDto.HouseNumber);
-            Assert.AreEqual(result.City, addressDto.City);
-            Assert.AreEqual(result.PostalCode, addressDto.PostalCode);
-            Assert.AreEqual(result.Country, addressDto.Country);
+            Assert.AreEqual(addressDto.Street, result.Street);
+            Assert.AreEqual(addressDto.Number, result.Number);
+            Assert.AreEqual(addressDto.City, result.City);
+            Assert.AreEqual(addressDto.PostalCode, result.PostalCode);
+            Assert.AreEqual(addressDto.Country, result.Country);
+
         }
 
 

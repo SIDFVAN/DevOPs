@@ -1,0 +1,76 @@
+﻿@using FluentValidation
+@using MudBlazor
+@using Blanche.Client.Admin.Products.Components
+
+@page "/admin/product-detail/{Guid:int}"
+
+<PageTitle>Blanche</PageTitle>
+
+<MudText Typo="Typo.h3">Update Products</MudText>
+
+<MudForm Model="@Product" @ref="@form">
+    <MudTextField @bind-Value="Product.Name" For="@(() => Product.Name)" Label="Name" />
+    <MudTextField @bind-Value="Product.Description" For="@(() => Product.Description)" Label="Description" Lines="3" />
+    <MudNumericField @bind-Value="Product.Price" For="@(() => Product.Price)" Label="Price" />
+    <MudNumericField @bind-Value="Product.QuantityInStock" For="@(() => Product.QuantityInStock)" Label="Quantity" />
+    <MudNumericField @bind-Value="Product.MinimumUnits" For="@(() => Product.MinimumUnits)" Label="Minimum units to order" />
+
+    <MudText Typo="Typo.h5">Image in index page</MudText>
+    @*<ImageCard url="@Product.ImageUrl" product = "@Product" />*@
+
+    <MudCard>
+        <MudCardMedia Image="@Product.ImageUrl" Height="200" />
+        <MudCardActions>
+            <MudButton Variant="Variant.Text"
+                       Color="Color.Warning"
+                       StartIcon="@Icons.Material.Filled.DeleteForever"
+            @onclick="() => DeleteImage(Product.ImageUrl)">
+                Delete
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+
+    @if(!string.IsNullOrEmpty(Product.ImageUrl.ToString())){
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadImage">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                            Variant="Variant.Filled"
+                            Color="Color.Primary"
+                            StartIcon="@Icons.Material.Filled.CloudUpload"
+                            for="@context">
+                    Upload Picture
+                </MudButton>
+             </ButtonTemplate>
+        </MudFileUpload>
+    }
+
+    @*<MudText Typo="Typo.h5">Images in detail page</MudText>
+    <div class="d-flex flex-row justify-content-around my-auto">
+        @foreach (var url in product.DetailUrlImages)
+        {
+            <ImageCard url="url" />
+        }
+    </div>
+
+    <MudFileUpload T="IBrowserFile" FilesChanged="UploadImages">
+        <ButtonTemplate>
+            <MudButton HtmlTag="label"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                       for="@context">
+                Upload Pictures
+            </MudButton>
+        </ButtonTemplate>
+    </MudFileUpload>*@
+
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" StartIcon="@Icons.Material.Filled.Save" OnClick="@(() => UpdateProductAsync())">
+            Save
+        </MudButton>
+        <MudButton Variant = "Variant.Filled" Color = "Color.Primary" StartIcon="@Icons.Material.Filled.Cancel">
+            Cancel
+        </MudButton>
+    </MudCardActions>
+    
+</MudForm>

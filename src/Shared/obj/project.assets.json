@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "FluentValidation/11.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authorization/3.1.3": {
         "type": "package",
         "dependencies": {
@@ -161,6 +174,29 @@
     }
   },
   "libraries": {
+    "FluentValidation/11.8.0": {
+      "sha512": "TiEaaYqSIAS+wXQv46LRm8Mca092XYNePD0n231Hqlkmm5FuToZoWnjI1ef/vJUxBzqR7/k2vaVQXxijNgVKRQ==",
+      "type": "package",
+      "path": "fluentvalidation/11.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.11.8.0.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net5.0/FluentValidation.dll",
+        "lib/net5.0/FluentValidation.xml",
+        "lib/net6.0/FluentValidation.dll",
+        "lib/net6.0/FluentValidation.xml",
+        "lib/net7.0/FluentValidation.dll",
+        "lib/net7.0/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml",
+        "lib/netstandard2.1/FluentValidation.dll",
+        "lib/netstandard2.1/FluentValidation.xml"
+      ]
+    },
     "Microsoft.AspNetCore.Authorization/3.1.3": {
       "sha512": "ujHcZtQJcloThrt7NFQtUU9wqM1RsiItSQTz+W9yKyGrsWQyNnQY+lJvpUCVHzOqaQrxKRV4AHdUxtGquQPTcg==",
       "type": "package",
@@ -337,6 +373,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "FluentValidation >= 11.8.0",
       "Microsoft.AspNetCore.Components.DataAnnotations.Validation >= 3.2.0-rc1.20223.4"
     ]
   },
@@ -346,11 +383,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj",
+      "projectUniqueName": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj",
       "projectName": "Blanche.Shared",
-      "projectPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\Blanche.Shared.csproj",
+      "projectPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\Blanche.Shared.csproj",
       "packagesPath": "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\",
-      "outputPath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Shared\\obj\\",
+      "outputPath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\FrankVanhoorne\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -379,6 +416,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "FluentValidation": {
+            "target": "Package",
+            "version": "[11.8.0, )"
+          },
           "Microsoft.AspNetCore.Components.DataAnnotations.Validation": {
             "target": "Package",
             "version": "[3.2.0-rc1.20223.4, )"

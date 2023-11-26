@@ -30,15 +30,18 @@ namespace Blanche.Server.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -64,6 +67,87 @@ namespace Blanche.Server.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("HasDrinks")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("HasFood")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.Property<string>("PricePerDays")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("PricePerExtraDay")
+                        .HasColumnType("double");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Formulas");
+                });
+
+            modelBuilder.Entity("Blanche.Domain.Invoices.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ConfirmationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("InvoiceNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsQuote")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("Blanche.Domain.Products.Beer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -76,7 +160,7 @@ namespace Blanche.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Formulas");
+                    b.ToTable("Beers");
                 });
 
             modelBuilder.Entity("Blanche.Domain.Products.Product", b =>
@@ -84,10 +168,6 @@ namespace Blanche.Server.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -105,12 +185,13 @@ namespace Blanche.Server.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -163,6 +244,9 @@ namespace Blanche.Server.Migrations
                     b.Property<Guid>("FormulaId")
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("InvoiceId")
+                        .HasColumnType("char(36)");
+
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("tinyint(1)");
 
@@ -175,6 +259,9 @@ namespace Blanche.Server.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("double");
 
+                    b.Property<Guid?>("TypeOfBeerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -183,6 +270,10 @@ namespace Blanche.Server.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("FormulaId");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("TypeOfBeerId");
 
                     b.ToTable("Reservations");
                 });
@@ -218,23 +309,28 @@ namespace Blanche.Server.Migrations
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasColumnType("longtext");
+                                .HasMaxLength(255)
+                                .HasColumnType("varchar(255)");
 
                             b1.Property<string>("Country")
                                 .IsRequired()
-                                .HasColumnType("longtext");
+                                .HasMaxLength(255)
+                                .HasColumnType("varchar(255)");
 
                             b1.Property<string>("Number")
                                 .IsRequired()
-                                .HasColumnType("longtext");
+                                .HasMaxLength(10)
+                                .HasColumnType("varchar(10)");
 
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
-                                .HasColumnType("longtext");
+                                .HasMaxLength(20)
+                                .HasColumnType("varchar(20)");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasColumnType("longtext");
+                                .HasMaxLength(255)
+                                .HasColumnType("varchar(255)");
 
                             b1.HasKey("CustomerId");
 
@@ -282,9 +378,23 @@ namespace Blanche.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Blanche.Domain.Invoices.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Blanche.Domain.Products.Beer", "TypeOfBeer")
+                        .WithMany()
+                        .HasForeignKey("TypeOfBeerId");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Formula");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("TypeOfBeer");
                 });
 
             modelBuilder.Entity("Blanche.Domain.Reservations.ReservationLine", b =>

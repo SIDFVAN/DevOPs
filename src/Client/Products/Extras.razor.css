@@ -1,0 +1,58 @@
+﻿ .product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    max-width: 300px;
+    display: inline-block;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.product h3 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.product p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.product label {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.product select {
+    width: 50px;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.product button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.product button:hover {
+    background-color: #0056b3;
+}
+
+.bg-img {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: brightness(0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.mud-expand-panel-header {
+    padding: 0px;
+}

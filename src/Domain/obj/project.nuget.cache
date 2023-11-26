@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "fym4ujofcFprxsTYdsKQmmy5Kt4MDa2di+En9v83jr/zuhue5AULrr/Xc2MLRQaMk92bmlKuFFj8XlGCAfQTJw==",
+  "dgSpecHash": "MsryJ01P4UcRY67y1YjcAYKxr0b0eEmmvK0lOg3uU+W6DM+CaSFl8xNbQEplz2sRi6BdA5JF75jkWc0Kn6WAuA==",
   "success": true,
-  "projectFilePath": "C:\\Hogent\\DEVOPSGIT\\DevOPs\\src\\Domain\\Blanche.Domain.csproj",
+  "projectFilePath": "C:\\Hogent\\DEVOPS2011\\devops-23-24-net-t01\\src\\Domain\\Blanche.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\ardalis.guardclauses\\4.1.1\\ardalis.guardclauses.4.1.1.nupkg.sha512",
+    "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.3\\microsoft.aspnetcore.authorization.3.1.3.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.3\\microsoft.aspnetcore.components.3.1.3.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.1.3\\microsoft.aspnetcore.components.analyzers.3.1.3.nupkg.sha512",
@@ -23,10 +24,11 @@
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.jsinterop\\3.1.3\\microsoft.jsinterop.3.1.3.nupkg.sha512",
+    "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\mimetypesmap\\1.0.8\\mimetypesmap.1.0.8.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\riok.mapperly\\3.2.0\\riok.mapperly.3.2.0.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
     "C:\\Users\\FrankVanhoorne\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512"
   ],
   "logs": []

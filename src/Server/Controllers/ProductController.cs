@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Blanche.Shared.Products;
+using Microsoft.AspNetCore.Authorization;
+using Swashbuckle.AspNetCore.Annotations;
+using Blanche.Domain.Products;
+using System.Data;
+using Blanche.Shared.Reservations;
 
 namespace Blanche.Server.Controllers
 {
@@ -8,50 +13,63 @@ namespace Blanche.Server.Controllers
 	public class ProductController : Controller
 	{
 		private readonly IProductService _productService;
-		private readonly List<ProductDto> _products = new()
-		{
-			new ProductDto {Id = Guid.NewGuid(), Description = "Voor de sfeer en gezelligheid", MinimumUnits=1, Name="Vuurschaal", Quantity = 5, ImageUrl = "images/products/img_vuurschaal" },
-			new ProductDto {Id = Guid.NewGuid(), Description = "Om een lekker stukje vlees of vis te bakken", MinimumUnits=1, Name="Barbecue", Quantity = 5, ImageUrl = "images/products/img_barbecue" },
-			new ProductDto {Id = Guid.NewGuid(), Description = "Handige en stevige tafels voor al uw feesten", MinimumUnits=1, Name="tafel", Quantity = 5, ImageUrl = "images/products/img_tafel" },
-			new ProductDto {Id = Guid.NewGuid(), Description = "Voor extra sfeer en gezelligheid 's avonds", MinimumUnits=1, Name="Verlichting", Quantity = 5, ImageUrl = "images/products/img_verlichting" },
-			new ProductDto {Id = Guid.NewGuid(), Description = "Niet genoeg glazen, we hebben er!", MinimumUnits=6, Name="Glazen tripel", Quantity = 36, ImageUrl = "images/products/img_glazen" },
-		};
 
 		public ProductController(IProductService productService)
 		{
 			_productService = productService;
 		}
 
-        [HttpGet]
-        public IActionResult Index()
+		[SwaggerOperation("Returns a list of products available for renting during an event.")]
+        [HttpGet, AllowAnonymous]
+        public async Task<IEnumerable<ProductDto>> GetAllAsync()
 		{
-			return View();
+			return await _productService.GetAllAsync();
 		}
 
-		[HttpGet("{id}")]
-		public IActionResult Details(int id)
-		{
-			return View();
+        [SwaggerOperation("Returns a specific product available for renting during an event.")]
+        [HttpGet("{id}"), AllowAnonymous]
+		public async Task<ProductDto> GetByIdAsync(Guid productId)
+        {
+			return await _productService.GetByIdAsync(productId);
 		}
 
-		[HttpGet("List")]
-		public ActionResult List()
+        [SwaggerOperation("Creates a new product for renting.")]
+        [HttpPost]	
+		public async Task<IActionResult> Create(ProductDto productDto)
 		{
-			return Ok(_products);
-		}
+            // authentication required
+            var productId = await _productService.CreateAsync(productDto);
+            return CreatedAtAction(nameof(Create), productId);
+        }
 
-		[HttpPost]
-		public ActionResult Create(ProductDto productDTO)
-		{
-			// authentication required
-			return View(productDTO);
-		}
+        [SwaggerOperation("Edites an existing product in the catalog.")]
+        [HttpPut("{productId}")]
+        public async Task<IActionResult> Edit(ProductDto productDto)
+        {
+            // authentication required
+            await _productService.EditAsync(productDto);
+            return NoContent();
+        }
 
-		[HttpDelete("{id}")]
-		public IActionResult Delete(int id)
+        [SwaggerOperation("Updates the quantity in stock of a product.")]
+        [HttpPut]
+        [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ProductDto> EditQuantityInStockAsync(ProductDto productDto)
+        {
+            var product = await _productService.EditQuantityInStockAsync(productDto);
+            return product!;
+        }
+
+        [SwaggerOperation("Deletes an existing product.")]
+        [HttpDelete("{id}")]
+		public async Task<IActionResult> Delete(Guid productId)
 		{
-			// authentication required
-			return View();
-		}
+            // authentication required
+            await _productService.DeleteAsync(productId);
+            return NoContent();
+        }
 	}
 }

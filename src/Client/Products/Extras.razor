@@ -1,0 +1,88 @@
+﻿@page "/extras"
+@using System.Net.Http
+@inject HttpClient HttpClient
+@using MudBlazor;
+@using Blanche.Shared.Products
+@using Blanche.Shared.Reservations;
+@using Blanche.Client.Reservations;
+@using Blazored.SessionStorage;
+@using System.Text.Json;
+
+<PageTitle>Extras</PageTitle>
+
+@if (ProductList.Any())
+{
+    <MudContainer Class="mt-8 mb-16">
+        <MudGrid Spacing="4" Justify="Justify.FlexStart" Class="mb-16">
+            @foreach (ProductDto product in ProductList)
+            {
+                <MudItem xs="3" Class="h-25">
+                    <MudCard>
+                        <MudCardMedia Image="@product.ImageUrl" Height="250" />
+                        <MudCardContent Class="justify-center" Style="align-items: center; padding-bottom: 0px; min-height: 100px;">
+                            <MudText Typo="Typo.h6" Class="ml-2">@product.Name</MudText>
+                        </MudCardContent>
+                        <MudExpansionPanels DisableBorders="true" Elevation="0">
+                            <MudExpansionPanel HideIcon="true">
+                                <TitleContent>
+                                    <div class="d-flex">
+                                        <MudText>Meer details</MudText>
+                                        <MudIcon Icon="@(isOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Add)" class="ml-auto"></MudIcon>
+                                    </div>
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudText Typo="Typo.body2" Class="mt-2">@product.Description</MudText>
+                                    <MudText Typo="Typo.body2" Class="mt-2">@("Huurprijs per 72u: " + product.Price + "€ excl. btw")</MudText>
+                                    @if (product.QuantityInStock == 0)
+                                    {
+                                        <MudText Typo="Typo.body2" Class="mt-3">Niet meer in stock</MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudText Typo="Typo.body2" Class="mt-3"><b>@(product.QuantityInStock + " items in stock")</b></MudText>
+                                        <!--<MudSelect @bind-Value="product.QuantityOrdered">
+                                        @for (int index = 0; index <= product.QuantityInStock; index += product.MinimumUnits)
+                                        {-->
+                                            @*<MudSelectItem Value="@index">@index</MudSelectItem>*@
+
+                                        <!--}
+                                    </MudSelect>-->
+                                    }
+                                </ChildContent>
+                            </MudExpansionPanel>
+                        </MudExpansionPanels>
+                        @if (product.QuantityInStock > 0)
+                        {
+                            <MudNumericField T="int" @bind-Value="product.QuantityOrdered" Label="@("Gewenst aantal (max " + product.QuantityInStock + ")")"
+                                             Min="0" Max="@product.QuantityInStock" Class="mx-6 mt-2" />
+                        }
+                        else
+                        {
+                            <MudText Class="mx-6 mt-8"><b>Niet meer in stock</b></MudText>
+                        }
+                        <MudCardActions Class="mt-2 ml-2">
+                            @if (product.IsAdded)
+                            {
+                                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => DeleteProductFormReservation(product))"
+                                           StartIcon="@Icons.Material.Filled.Delete">
+                                    Verwijder
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => AddProductToReservation(product))"
+                                           StartIcon="@Icons.Material.Filled.Add">
+                                    Voeg toe
+                                </MudButton>
+                            }
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>    
+    </MudContainer>
+    <MudContainer Class="d-flex justify-content-center">
+        <MudButton ButtonType="ButtonType.Button" Href="/booking" Variant="Variant.Filled" Color="Color.Primary"
+                   Size="Size.Large" Style="position: fixed; bottom: 20px; margin: auto;">Bevestig toegevoegde extra's'</MudButton>
+    </MudContainer>
+}

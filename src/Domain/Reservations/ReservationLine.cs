@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Blanche.Domain.Common;
 using Blanche.Domain.Products;
+using Blanche.Shared.Products;
 
 namespace Blanche.Domain.Reservations
 {
@@ -13,12 +14,12 @@ namespace Blanche.Domain.Reservations
 
         private ReservationLine() { }
 
-        public ReservationLine(Reservation reservation, ReservationItem item)
+        public ReservationLine(Reservation reservation, Product item)
         {
             Reservation = Guard.Against.Null(reservation, nameof(Reservation));
-            Guard.Against.Null(item, nameof(ReservationItem));
-            Quantity = item.Quantity;
-            Product = item.Product;
+            Guard.Against.Null(item, nameof(ProductDto));
+            Quantity = item.QuantityInStock;
+            Product = item;
             Price = Product.Price;
         }
     }

@@ -1,0 +1,131 @@
+﻿@page "/admin/products"
+
+@using Blanche.Client.Admin.Products.Components;
+@using Blanche.Shared.Formulas;
+@using Blanche.Shared.Products;
+@using MudBlazor
+
+<PageTitle>Blanche</PageTitle>
+
+<MudContainer>
+    <MudText Typo="Typo.h3">Formulas</MudText>
+    @if(Formulas != null){
+        <MudTable Items="@Formulas" T="FormulaDto.Index" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped"
+                  SortLabel="Sort By">
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<FormulaDto.Index, object>(x=>x.Name!)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<FormulaDto.Index, object>(x=>x.Price!)">Price</MudTableSortLabel></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+
+            <RowTemplate>
+                <MudTd DataLabel="Naam">@context.Name</MudTd>
+                <MudTd DataLabel="Prijs">@context.Price.ToString("C")</MudTd>
+                <MudTd DataLabel="Edit">
+                    <MudTooltip Text="Edit">
+                        <MudIconButton Icon="@Icons.Material.Filled.ModeEdit" OnClick="@(() => ShowEditFormulaForm(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+                <MudTd DataLabel="Delete">
+                    <MudTooltip Text="Delete">
+                        <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" OnClick="@(()=>DeleteFormula(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+        <MudSwitch @bind-Checked="enabled" Color="Color.Info">Enable sorting on the Sign Column</MudSwitch>
+    }else{
+        <MudContainer>Loading...</MudContainer>
+    }
+    <MudContainer Class="d-flex justify-content-center my-10">
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" @onclick="ShowCreateFormulaForm">
+            Add formula
+        </MudButton>
+    </MudContainer>
+    
+    <MudText Typo="Typo.h3">Products</MudText>
+
+    @if(Products != null){
+        <MudTable Items="@Products" T="ProductDto" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped"
+                  SortLabel="Sort By" @bind-SelectedItem="selectedProduct">
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<ProductDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ProductDto, object>(x=>x.Price)">Price</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ProductDto, object>(x=>x.QuantityInStock)">Quantity</MudTableSortLabel></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            
+            <RowTemplate>
+                <MudTd DataLabel="Naam">@context.Name</MudTd>
+                <MudTd DataLabel="Prijs">@context.Price.ToString("C")</MudTd>
+                <MudTd DataLabel="Hoeveelheid">@context.QuantityInStock</MudTd>
+                <MudTd DataLabel="Edit">
+                    <MudTooltip Text="Edit">
+                        <MudIconButton Icon="@Icons.Material.Filled.ModeEdit" OnClick="@(() => ShowEditProductForm(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+                <MudTd DataLabel="Delete">
+                    <MudTooltip Text="Delete">
+                        <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" OnClick="@(()=>DeleteProduct(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+        <MudSwitch @bind-Checked="enabled" Color="Color.Info">Enable sorting on the Sign Column</MudSwitch>
+    }else{
+        <MudContainer>Loading...</MudContainer>
+    }
+    <MudContainer Class="d-flex justify-content-center my-10">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" @onclick="@(() => ShowCreateProductForm())">
+            Add product
+        </MudButton>
+    </MudContainer>
+
+    <MudText Typo="Typo.h3">Beers</MudText>
+
+    @if(Beers != null){
+        <MudTable Items="@Beers" T="BeerDto" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped"
+                  SortLabel="Sort By">
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<BeerDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<BeerDto, object>(x=>x.Price)">Price</MudTableSortLabel></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+
+            <RowTemplate>
+                <MudTd DataLabel="Naam">@context.Name</MudTd>
+                <MudTd DataLabel="Prijs">@context.Price.ToString("C")</MudTd>
+                <MudTd DataLabel="Edit">
+                    <MudTooltip Text="Edit">
+                        <MudIconButton Icon="@Icons.Material.Filled.ModeEdit" OnClick="@(() => ShowEditBeerForm(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+                <MudTd DataLabel="Delete">
+                    <MudTooltip Text="Delete">
+                        <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" OnClick="@(()=>DeleteBeer(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+        <MudSwitch @bind-Checked="enabled" Color="Color.Info">Enable sorting on the Sign Column</MudSwitch>
+    }else{
+        <MudContainer>Loading...</MudContainer>
+    }
+    <MudContainer Class="d-flex justify-content-center my-10">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" @onclick="ShowCreateBeerForm">
+            Add beer
+        </MudButton>
+    </MudContainer>
+</MudContainer>
