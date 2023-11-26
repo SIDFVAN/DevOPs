@@ -11,8 +11,7 @@ namespace tests.Fakers.Formulas
 				f.Commerce.ProductName(),
 				f.Lorem.Paragraph(),
 				f.Random.Int(1,1),
-				f.Random.Double(0,250),
-				f.Lorem.Lines()
+				f.Random.Double(0,250)
 			));
 		}
 	}

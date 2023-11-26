@@ -1,4 +1,4 @@
-using Blanche.Domain.Reservations;
+﻿using Blanche.Domain.Reservations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,11 +8,9 @@ namespace Blanche.Server.Persistence.Configurations.Reservations
     {
 		public void Configure(EntityTypeBuilder<Reservation> builder)
 		{
-			//builder.HasOne(r => r.Customer);
-			//builder.OwnsOne(r => r.Formula).Property(r => r.Name);
-			//builder.OwnsOne(r => r.TypeOfBeer);
-
-			builder.HasOne(r => r.Invoice);
+			builder.HasOne(r => r.Customer);
+			builder.HasOne(r => r.Formula);
+			builder.HasMany(r => r.Lines);
 		}
 	}
 }

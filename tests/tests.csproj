@@ -33,14 +33,14 @@
     <None Remove="Fakers\Reservations\" />
     <None Remove="Fakers\Formulas\" />
     <None Remove="Fakers\Products\" />
-    <None Remove="Formulas\" />
-    <None Remove="Fakers\Invoices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reservations\" />
+    <Folder Include="Fakers\" />
     <Folder Include="Fakers\Common\" />
-    <Folder Include="Formulas\" />
-    <Folder Include="Fakers\Invoices\" />
+    <Folder Include="Fakers\Reservations\" />
+    <Folder Include="Fakers\Formulas\" />
+    <Folder Include="Fakers\Products\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\Domain\Blanche.Domain.csproj" />

@@ -1,5 +1,5 @@
 ﻿using Blanche.Domain.Customers;
-using Blanche.Mappers.Customers;
+using Blanche.Domain.Customers.Mappers;
 using Blanche.Shared.Customers;
 using Blanche.Shared.Reservations;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +41,8 @@ public class CustomerController : ControllerBase
 	{
 		EmailAddress emailAddress = new(customerDto.Email.ToString());
 
-        Customer customer = CustomerMapper.ToCustomer(customerDto);
+        var mapper = new CustomerMapper();
+        Customer customer = mapper.ToCustomer(customerDto);
          
 		Console.WriteLine(customer.ToString());
 		return Ok(customer);

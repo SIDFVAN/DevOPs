@@ -1,6 +1,5 @@
 ﻿using Blanche.Shared.Customers;
 using Bogus;
-using Bogus.DataSets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +13,14 @@ namespace tests.Fakers.Customer
     {
         public CustomerDtoFaker(string locale = "nl") : base(locale)
         {
-            CustomInstantiator(f => new CustomerDto()
-            {
-                FirstName = f.Person.FirstName,
-                LastName = f.Person.LastName,
-                PhoneNumber = f.Phone.PhoneNumber(),
-                CustomerAddress = new AddressDtoFaker(locale),
-                Email = new EmailAddressDto() { Value = f.Person.Email}
-            });
-            
+            CustomInstantiator(f => CustomerDto.Builder()
+            .WithFirstName(f.Person.FirstName)
+            .WithLastName(f.Person.LastName)
+            .WithPhoneNumber(f.Phone.PhoneNumber())
+            .WithCustomerAddress(new AddressDtoFaker(locale))
+            .WithEmail(f.Person.Email)
+            .Build());
+
         }
     }
 }

@@ -5,14 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>25695ae3-01a3-452f-a4f6-c14b85b52d87</UserSecretsId>
-	  <PreserveCompilationReferences>true</PreserveCompilationReferences>
-	  <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronPdf" Version="2023.11.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
@@ -26,18 +22,14 @@
     </PackageReference>
     <PackageReference Include="NuGet.Protocol" Version="6.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.11" />
-    <PackageReference Include="RazorLight" Version="2.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-    <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.2.2" />
-	<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Client\Blanche.Client.csproj" />
     <ProjectReference Include="..\Mappers\Blanche.Mappers.csproj" />
     <ProjectReference Include="..\Shared\Blanche.Shared.csproj" />
-	<ProjectReference Include="..\Domain\Blanche.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,18 +40,14 @@
     <None Remove="Services\" />
     <None Remove="Services\Products\" />
     <None Remove="Services\Reservations\" />
-    <None Remove="Services\Formulas\" />
-    <None Remove="Persistence\Configurations\Formulas\" />
-    <None Remove="Persistence\Triggers\" />
-    <None Remove="Seeding\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\Configurations\" />
     <Folder Include="Persistence\Repository\" />
     <Folder Include="Persistence\Configurations\Customers\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Products\" />
     <Folder Include="Services\Reservations\" />
-    <Folder Include="Services\Formulas\" />
-    <Folder Include="Persistence\Configurations\Formulas\" />
-    <Folder Include="Persistence\Triggers\" />
-    <Folder Include="Seeding\" />
   </ItemGroup>
 </Project>

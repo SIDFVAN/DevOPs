@@ -6,6 +6,7 @@ using Blanche.Shared.Products;
 using Blanche.Shared.Reservations;
 using Microsoft.AspNetCore.Components; 
 using Microsoft.JSInterop;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace Blanche.Client.Checkout.Components
@@ -15,7 +16,7 @@ namespace Blanche.Client.Checkout.Components
         [Inject] private HttpClient HttpClient { get; set; } = default!;
         [Inject] private IJSRuntime js { get; set; } = default!;
 
-        private ReservationDto? reservationDto { get; set; } = new();    
+        private ReservationDto? reservationDto = new ReservationDto();
       
         private CustomerDetail customerDetail;
 
@@ -24,60 +25,60 @@ namespace Blanche.Client.Checkout.Components
 
         protected override async Task OnInitializedAsync()
         {
-                        
+             
             var productsJson = await js.InvokeAsync<string>("localStorage.getItem", "chosen_products");
             var formulaJson = await js.InvokeAsync<string>("localStorage.getItem", "chosen_formula");
              
 
             if (!string.IsNullOrEmpty(productsJson))
             {
-                reservationDto.Items = JsonSerializer.Deserialize<List<ProductDto>>(productsJson);
+                reservationDto.Items = JsonSerializer.Deserialize<List<ReservationItemDto>>(productsJson);
             }
             else
             { 
-                reservationDto.Items = new List<ProductDto>();
+                reservationDto.Items = new List<ReservationItemDto>();
             }
 
-            //if (!string.IsNullOrEmpty(formulaJson))
-            //{
-            //    reservationDto.Formula = JsonSerializer.Deserialize<FormulaDto.Index>(formulaJson);
-            //}
-            //else
-            //{
-            //    //ErrorMessage = "Geen formule geselecteerd";
-            //}
-
-            //// test code
-            //reservationDto.Formula = new FormulaDto.Index { Name = "test", Description = "test", Price = 20.5};
-            //reservationDto.Items.Add(new ProductDto() { Price = 2.5, Name = "item_1", Description = "test_1 item_1", Quantity = 10 } );
-            //reservationDto.NumberOfPersons = 5;
-            //// end test code
+            if (!string.IsNullOrEmpty(formulaJson))
+            {
+                reservationDto.Formula = JsonSerializer.Deserialize<FormulaDto>(formulaJson);
+            }
+            else
+            {
+                //ErrorMessage = "Geen formule geselecteerd";
+            }
+                         
+            // test code
+            reservationDto.Formula = new FormulaDto("test", "test", 20);
+            reservationDto.Items.Add(new ReservationItemDto() { Quantity = 10, Product = new ProductDto() { Price = 2.5, Name = "item_1", Description = "test_1 item_1" } });
+            reservationDto.NumberOfPersons = 5;
+            // end test code
              
         }
 
         public async Task SetReservationAsync()
         {
 
-            //if (customerDetail.CheckCustomerDetails())
-            //{
-            //    reservationDto.StartDate = DateTime.Now;
-            //    reservationDto.EndDate = DateTime.Now;
+            if (customerDetail.CheckCustomerDetails())
+            {
+                reservationDto.StartDate = DateTime.Now;
+                reservationDto.EndDate = DateTime.Now;
 
-            //    var response = await HttpClient.PostAsJsonAsync($"api/reservation", reservationDto);
+                var response = await HttpClient.PostAsJsonAsync($"api/reservation", reservationDto);
 
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        requestOk = true;
-            //        // Deserialize the response into a ReservationDto
-            //        reservationDto = await response.Content.ReadFromJsonAsync<ReservationDto>();
-            //        await js.InvokeVoidAsync("localStorage.removeItem", "chosen_products");
-            //        await js.InvokeVoidAsync("localStorage.removeItem", "chosen_formula");
-            //    }
-            //    else
-            //    {
-            //        ErrorMessage = $"Failed to create a reservation. Status code: {response.StatusCode}";
-            //    }
-            //}
+                if (response.IsSuccessStatusCode)
+                {
+                    requestOk = true;
+                    // Deserialize the response into a ReservationDto
+                    reservationDto = await response.Content.ReadFromJsonAsync<ReservationDto>();
+                    await js.InvokeVoidAsync("localStorage.removeItem", "chosen_products");
+                    await js.InvokeVoidAsync("localStorage.removeItem", "chosen_formula");
+                }
+                else
+                {
+                    ErrorMessage = $"Failed to create a reservation. Status code: {response.StatusCode}";
+                }
+            }
 
 
         }

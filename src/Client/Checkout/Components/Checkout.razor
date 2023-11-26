@@ -30,8 +30,8 @@
                     <MudDivider />
                     <div class="d-flex pa-4">
                         <MudText Class="">Formule: </MudText>
-                        @*<MudText Class="ml-auto"><b>@reservationDto?.Formula?.Name</b></MudText>
-        <MudText Class="ml-auto"><b>@string.Format("{0:F2}", reservationDto?.Formula.Price)</b></MudText>*@
+                        <MudText Class="ml-auto"><b>@reservationDto?.Formula?.Name</b></MudText>
+                        <MudText Class="ml-auto"><b>@string.Format("{0:F2}", reservationDto?.Formula.Price)</b></MudText>
                         <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
                     </div>
 
@@ -44,10 +44,10 @@
                                     {
                                         <MudListItem>
                                             <div class="d-flex">
-                                                <MudText>@item.Name</MudText>
-                                                <MudText Class="ml-auto">@item.Description</MudText>
+                                                <MudText>@item.Product?.Name</MudText>
+                                                <MudText Class="ml-auto">@item.Product?.Description</MudText>
                                                 <MudText Inline="true" Class="ml-auto">
-                                                    @string.Format("{0:F2}", item.Price * item.QuantityOrdered)
+                                                    @string.Format("{0:F2}", item.Product?.Price * item.Quantity)
                                                 </MudText>
                                                 <MudIcon Icon=@Icons.Material.Filled.EuroSymbol></MudIcon>
                                                 <MudItem Class="ml-auto" Clickable="true" @onclick="_ => reservationDto.Items.Remove(item)">

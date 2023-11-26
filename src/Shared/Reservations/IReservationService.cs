@@ -4,7 +4,7 @@
     {
         // Reservation data
         Task<ReservationDto> GetReservationById(Guid reservationId);
-        Task<Guid> CreateReservationAsync(ReservationDto reservationDto);
+        Task<ReservationDto?> CreateReservationAsync(ReservationDto reservationDto);
         Task<ReservationDto?> UpdateReservationAsync(ReservationDto reservationDto);
         Task<List<ReservationDto>> GetReservationsByCustomerId(Guid customerId);
         Task<List<ReservationDto>> GetOpenReservations();

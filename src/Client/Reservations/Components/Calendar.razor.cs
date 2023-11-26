@@ -1,5 +1,4 @@
 ﻿using Blanche.Shared.Reservations;
-using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -12,15 +11,9 @@ namespace Blanche.Client.Reservations.Components
         private IEnumerable<DateTime> alreadyBookedDates = new List<DateTime>();
         private IEnumerable<DateTime> popularDates = new List<DateTime>();
         private IEnumerable<DateTime> bookedByClientDates = new List<DateTime>();
+        private readonly Guid customerId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa9");
 
         [Inject] public IReservationService ReservationService { get; set; } = default!;
-        [Inject] public NavigationManager NavigationManager { get; set; } = default!;
-        [Inject] public ISessionStorageService SessionStorage { get; set; } = default!;
-
-        [Parameter]
-        public Guid CustomerId { get; set; }
-        [Parameter]
-        public EventCallback<Guid> CustomerIdChanged { get; set; }
 
         private string ShowPopularDates(DateTime date)
         {
@@ -28,34 +21,22 @@ namespace Blanche.Client.Reservations.Components
             var popular = popularDates.Select(p => p.ToShortDateString());
             var bookedByClient = bookedByClientDates.Select(b => b.ToShortDateString());
 
-            return bookedByClient.Contains(date.ToShortDateString()) && date > DateTime.Now ? "client-booked" :
-            alreadyBooked.Contains(date.ToShortDateString()) && date > DateTime.Now ? "already-booked" :
-            popular.Contains(date.ToShortDateString()) && date > DateTime.Now ? "special-day" : string.Empty;
-        }
-
-        private bool DisableBookedDates(DateTime date)
-        {
-            var alreadyBooked = alreadyBookedDates.Select(d => d.ToShortDateString());
-            return date < DateTime.Today || alreadyBooked.Contains(date.ToShortDateString());
+            return popular.Contains(date.ToShortDateString()) ? "special-day" :
+            bookedByClient.Contains(date.ToShortDateString()) ? "client-booked" :
+            alreadyBooked.Contains(date.ToShortDateString()) ? "already-booked" : string.Empty;
         }
 
         protected override async void OnAfterRender(bool firstRender)
         {
             popularDates = await ReservationService.GetPopularDates();
             alreadyBookedDates = await ReservationService.GetAlreadyBookedDates();
-            if (CustomerId != null)
-            {
-                var customerId = CustomerId;
-                Console.WriteLine(customerId);
-                bookedByClientDates = await ReservationService.GetBookedByClientDates(customerId);
-            }
+            bookedByClientDates = await ReservationService.GetBookedByClientDates(customerId);
             await picker.GoToDate(DateTime.Today);
-            SessionStorage.ClearAsync();
         }
 
-        private void StartBooking()
+        private void CurrentDate()
         {
-            NavigationManager.NavigateTo($"booking");
+            picker.GoToDate(DateTime.Today);
         }
     }
 }

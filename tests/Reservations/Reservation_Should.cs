@@ -5,11 +5,6 @@ using Blanche.Domain.Reservations;
 using tests.Fakers.Formulas;
 using tests.Fakers.Reservations;
 using Xunit.Abstractions;
-using tests.Fakers.Invoices;
-using Blanche.Domain.Invoices;
-using Blanche.Domain.Products;
-using tests.Fakers.Products;
-using Xunit.Sdk;
 
 namespace tests.Reservations
 {
@@ -31,13 +26,10 @@ namespace tests.Reservations
             bool isConfirmed = false;
             int numberOfPersons = 45;
             Customer customer = new CustomerFaker();
-            Invoice invoice = new InvoiceFaker();
-            //string formula = "Only Blanche";
             Formula formula = new FormulaFaker();
-            Beer beer = new BeerFaker();
-            List<Product> items = new ();
+            List<ReservationItem> items = new ();
 
-            Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, invoice, beer, items);
+            Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, items);
 
             reservation.StartDate.ShouldBe(startDate);
             reservation.EndDate.ShouldBe(endDate);
@@ -46,8 +38,6 @@ namespace tests.Reservations
             reservation.Customer.ShouldBe(customer);
             reservation.Formula.ShouldNotBeNull();
             reservation.Formula.ShouldBe(formula);
-            reservation.TypeOfBeer.ShouldNotBeNull();
-            reservation.TypeOfBeer.ShouldBe(beer);
             reservation.Items.ShouldBe(items);
 		}
 
@@ -60,29 +50,24 @@ namespace tests.Reservations
             bool isConfirmed = false;
             int numberOfPersons = 45;
             Customer customer = new CustomerFaker();
-            Invoice invoice = new InvoiceFaker();
-            //string formula = "Only Blanche";
             Formula formula = new FormulaFaker();
-            Beer beer = new BeerFaker();
-            List<Product> items = new ()
+            List<ReservationItem> items = new ()
             {
-                new ProductFaker(),
-                new ProductFaker()
+                new ReservationItemFaker(),
+                new ReservationItemFaker()
             };
 
-            Reservation reservation = new(startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, invoice, beer, items);
+            Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, items);
 
             reservation.StartDate.ShouldBe(startDate);
             reservation.EndDate.ShouldBe(endDate);
             reservation.TotalPrice.ShouldBe(totalPrice);
             reservation.IsConfirmed.ShouldBe(isConfirmed);
+            reservation.NumberOfPersons.ShouldBe(numberOfPersons);
             reservation.Customer.ShouldBe(customer);
-            reservation.Invoice.ShouldNotBeNull();
             reservation.Formula.ShouldNotBeNull();
             reservation.Formula.ShouldBe(formula);
-            reservation.TypeOfBeer.ShouldNotBeNull();
-            reservation.TypeOfBeer.ShouldBe(beer);
-            reservation.Items.ShouldBe(items);
+            reservation.Items.ShouldNotBeEmpty();
         }
 
         [Fact]
@@ -94,13 +79,10 @@ namespace tests.Reservations
             bool isConfirmed = false;
             int numberOfPersons = 45;
             Customer customer = new CustomerFaker();
-            Invoice invoice = new InvoiceFaker();
-            //string formula = "Only Blanche";
             Formula formula = new FormulaFaker();
-            Beer beer = new BeerFaker();
-            List<Product> items = new();
+            List<ReservationItem> items = new();
 
-            Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, invoice, beer, items);
+            Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, items);
 
             reservation.StartDate.ShouldBe(startDate);
             reservation.EndDate.ShouldBe(endDate);
@@ -108,11 +90,8 @@ namespace tests.Reservations
             reservation.IsConfirmed.ShouldBe(isConfirmed);
             reservation.NumberOfPersons.ShouldBe(numberOfPersons);
             reservation.Customer.ShouldBe(customer);
-            reservation.Invoice.ShouldNotBeNull();
             reservation.Formula.ShouldNotBeNull();
             reservation.Formula.ShouldBe(formula);
-            reservation.TypeOfBeer.ShouldNotBeNull();
-            reservation.TypeOfBeer.ShouldBe(beer);
             reservation.Items.ShouldBeEmpty();
             reservation.Items.ShouldNotBeNull();
         }
@@ -126,15 +105,12 @@ namespace tests.Reservations
             bool isConfirmed = false;
             int numberOfPersons = 45;
             Customer customer = new CustomerFaker();
-            Invoice invoice = new InvoiceFaker();
-            //string formula = "Only Blanche";
             Formula formula = new FormulaFaker();
-            Beer beer = new BeerFaker();
-            List<Product> items = new();
+            List<ReservationItem> items = new();
 
             Action act = () =>
             {
-                Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, invoice, beer, items);
+                Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, items);
             };
 
             output.WriteLine(startDate.ToShortDateString());
@@ -150,15 +126,12 @@ namespace tests.Reservations
             bool isConfirmed = false;
             int numberOfPersons = 45;
             Customer customer = new CustomerFaker();
-            Invoice invoice = new InvoiceFaker();
-            //string formula = "Only Blanche";
             Formula formula = new FormulaFaker();
-            Beer beer = new BeerFaker();
-            List<Product> items = new();
+            List<ReservationItem> items = new();
 
             Action act = () =>
             {
-                Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, invoice, beer, items);
+                Reservation reservation = new (startDate, endDate, totalPrice, isConfirmed, numberOfPersons, customer, formula, items);
             };
 
             act.ShouldThrow<Exception>();

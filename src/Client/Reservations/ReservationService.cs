@@ -1,6 +1,4 @@
 ﻿using System.Net.Http.Json;
-using Blanche.Domain.Reservations;
-using System.Text.Json;
 using Blanche.Shared.Reservations;
 
 namespace Blanche.Client.Reservations
@@ -8,17 +6,17 @@ namespace Blanche.Client.Reservations
     public class ReservationService : IReservationService
     {
         private readonly HttpClient client;
-        private const string endpoint = "api/Reservation";
+        private const string endpoint = "api/reservation";
 
         public ReservationService(HttpClient httpClient)
         {
             client = httpClient;
         }
-       
-        public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
+
+        public async Task<ReservationDto?> CreateReservationAsync(ReservationDto reservationDto)
         {
             var response = await client.PostAsJsonAsync(endpoint, reservationDto);
-            return await response.Content.ReadFromJsonAsync<Guid>();
+            return await response.Content.ReadFromJsonAsync<ReservationDto>();
         }
 
         public async Task<ReservationDto?> UpdateReservationAsync(ReservationDto reservationDto)

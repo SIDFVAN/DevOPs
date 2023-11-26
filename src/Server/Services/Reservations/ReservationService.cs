@@ -2,7 +2,8 @@
 using Blanche.Mappers.Reservations;
 using Blanche.Server.Persistence;
 using Blanche.Shared.Exceptions;
-using Blanche.Shared.Reservations; 
+using Blanche.Shared.Reservations;
+using Mappers.Reservations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blanche.Server.Services.Reservations;
@@ -16,9 +17,9 @@ public class ReservationService : IReservationService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
+    public async Task<ReservationDto?> CreateReservationAsync(ReservationDto reservationDto)
     {
-        var reservation = ReservationMapper.ReservationDtoToReservation(reservationDto);
+        var reservation = ReservationMapperManual.MapToEntity(reservationDto);
 
         var duplicateReservation = _unitOfWork.Reservations
             .Queryable()
@@ -30,20 +31,15 @@ public class ReservationService : IReservationService
             throw new DuplicateReservationException();
         }
 
-        if (reservation.TypeOfBeer != null)
-        {
-            _unitOfWork.Beers.Update(reservation.TypeOfBeer);
-        }
-        _unitOfWork.Formulas.Update(reservation.Formula);
         _unitOfWork.Reservations.Add(reservation);
         await _unitOfWork.CommitAsync();
 
-        return reservation.Customer.Id;
+        return ReservationMapperManual.MapToDto(reservation);
     }
 
     public async Task<ReservationDto?> UpdateReservationAsync(ReservationDto reservationDto)
     {
-        var reservation = ReservationMapper.ReservationDtoToReservation(reservationDto);
+        var reservation = ReservationMapperManual.MapToEntity(reservationDto);
 
         var reservationToUpdate = await _unitOfWork.Reservations.GetAsync(r => r.Id == reservationDto.Id) ?? throw new EntityNotFoundException();
 
@@ -58,7 +54,7 @@ public class ReservationService : IReservationService
         _unitOfWork.Reservations.Update(reservationToUpdate);
         await _unitOfWork.CommitAsync();
 
-        return ReservationMapper.ReservationToReservationDto(reservationToUpdate);
+        return ReservationMapperManual.MapToDto(reservationToUpdate);
     }
      
     public async Task<List<ReservationDto>> GetReservationsByCustomerId(Guid customerId)
@@ -74,7 +70,7 @@ public class ReservationService : IReservationService
 
         foreach (var reservation in reservations)
         {
-            var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
+            var reservationDto = ReservationMapperManual.MapToDto(reservation);
             reservationDtos.Add(reservationDto);
         }
 
@@ -169,7 +165,7 @@ public class ReservationService : IReservationService
 
         foreach (var reservation in reservations)
         {
-            var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
+            var reservationDto = ReservationMapperManual.MapToDto(reservation);
             reservationDtos.Add(reservationDto);
         }
 
@@ -186,7 +182,7 @@ public class ReservationService : IReservationService
             .Include(r => r.Lines)
             .SingleOrDefaultAsync() ?? throw new EntityNotFoundException();
 
-        var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
+        var reservationDto = ReservationMapperManual.MapToDto(reservation);
         return reservationDto;
          
     }

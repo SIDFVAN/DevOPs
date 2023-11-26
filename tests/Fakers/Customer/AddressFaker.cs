@@ -8,15 +8,14 @@ namespace tests.Fakers.Customer
     {
         public AddressFaker(string locale = "nl") : base(locale)
         {
-            CustomInstantiator(f => new Address()
-            {
-                Street = f.Address.StreetName(),
-                Number = f.Random.Number(0, 999).ToString(),
-                PostalCode = f.Address.ZipCode(),
-                City = f.Address.CityPrefix(),
-                Country = f.Address.Country()
-            });
-              
+            CustomInstantiator(f => Address.Builder()
+            .WithStreet(f.Address.StreetName())
+            .WithNumber(f.Random.Number(0, 999).ToString())
+            .WithPostalCode(f.Address.ZipCode())
+            .WithCity(f.Address.CityPrefix())
+            .WithCountry(f.Address.Country())
+            .Build());
+
         }
     }
 
