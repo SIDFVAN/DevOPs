@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,8 +12,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.22" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.13" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="6.11.1" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="CodeBeam.MudBlazor.Extensions" Version="6.6.2" />
+	<PackageReference Include="Blazored.FluentValidation" Version="2.0.3" />
+	<PackageReference Include="FluentValidation" Version="11.8.0" />
+	<PackageReference Include="Append.Blazor.Sidepanel" Version="6.3.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +32,7 @@
     <None Remove="Reservations\Components\" />
     <None Remove="Formulas\" />
     <None Remove="Extensions\" />
+    <None Remove="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Index.razor.css">
@@ -40,6 +47,7 @@
     <Folder Include="Formulas\" />
     <Folder Include="Shared\Components\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Products\Components\" />
@@ -47,6 +55,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Blanche.Shared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Mappers\Blanche.Mappers.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

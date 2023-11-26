@@ -1,14 +1,9 @@
 ﻿@page "/admin/reservations"
-
-@inject IReservationService reservationService;
-@inject NavigationManager navManager;
-
+ 
 @using System.Net.Http.Json
 @using Blanche.Shared.Reservations;
 @using MudBlazor
-
-@inject HttpClient httpClient
-
+  
 
 <MudTable Items="@Reservations" T="ReservationDto" Dense="@dense" Hover="@hover"
           Bordered="@bordered" Striped="@striped"
@@ -55,54 +50,4 @@
         <MudText Inline="true" Class="align-self-center">Geselecteerde klant: @selectedReservation?.Customer?.Email</MudText>
     </div>
 </div>
-
-@code {
-    private bool dense = false;
-    private bool hover = true;
-    private bool striped = false;
-    private bool bordered = false;
-
-    private string searchString = "";
-
-    private ReservationDto selectedReservation = null;
-
-    private HashSet<ReservationDto> selectedItems = new HashSet<ReservationDto>();
-    private IEnumerable<ReservationDto> Reservations = new List<ReservationDto>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        Reservations = await httpClient.GetFromJsonAsync<List<ReservationDto>>("api/reservation");
-    }
-
-    private void HandleOnRowClick(Guid guid)
-    {
-        navManager.NavigateTo($"/reservation/{guid.ToString()}/edit");
-    }
-
-    // private void HandleOnRowClick(TableRowClickEventArgs<ReservationDto> args)
-    // {
-    //     navManager.NavigateTo($"/reservation/{args.Item.Id}");
-    // }
-
-    private bool FilterFunction(ReservationDto reservation) => FilterFunc(reservation, searchString);
-
-    private bool FilterFunc(ReservationDto reservation, string searchString)
-    {
-        if (string.IsNullOrWhiteSpace(searchString))
-            return true;
-
-        if (reservation.Customer.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-
-        if (reservation.Customer.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-
-        if (reservation.Customer.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-
-
-        return false;
-    }
-
-
-}
+ 

@@ -2,10 +2,15 @@
 @using MudBlazor;
 
 <MudThemeProvider Theme="MyCustomTheme" />
+<MudDialogProvider />
 
-<div class="container">
+<NavMenu />
+<section class="section">
+    <img class="bg-img" src="/images/homePage/4.jpg" alt="Homepage background" />
     @Body
-</div>
+</section>
+
+<Sidepanel />
 
 @code{
     MudTheme MyCustomTheme = new MudTheme()
@@ -15,7 +20,10 @@
             Primary = Colors.Shades.Black,
             Secondary = Colors.Brown.Lighten2,
             Tertiary = Colors.Yellow.Darken2,
-            Error = Colors.Red.Lighten1
+            Error = Colors.Red.Lighten1,
+            Info = Colors.Shades.White,
+            Warning = Colors.Red.Darken1,
+            Dark = Colors.Grey.Darken4
         },
         PaletteDark = new PaletteDark()
         {

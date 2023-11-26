@@ -1,21 +1,33 @@
-﻿@using MudBlazor;
+@using MudBlazor;
 @using Blanche.Shared.Formulas
+@using System.Text.Json;
+@using Blazored.SessionStorage;
 
-<MudCard style="width: 400px; height: 400px;">
-    <MudCardMedia Image="@Image" Height="200" />
-    <MudCardContent Class="text-center">
-        <MudText Typo="Typo.h5">@Props?.Name</MudText>
-        <MudText Typo="Typo.body2">@Props?.Description</MudText>
-        <MudText Typo="Typo.body2">vanaf €@Props?.Price</MudText>
+<MudCard class="card" style="width: 25rem;">
+    <MudCardMedia Image="@Props?.ImageUrl" Class="card-img-top" Alt="Formula Image" />
+    <MudCardContent Class="card-body text-center">
+        <MudText class="card-title" Typo="Typo.h5">@Props?.Name</MudText>
+        <MudText class="card-text" Typo="Typo.body2">@Props?.Description</MudText>
+        <MudText class="card-text" Typo="Typo.body2">vanaf €@Props?.Price</MudText>
     </MudCardContent>
     <MudCardActions Class="justify-content-around">
         <MudButton Variant="Variant.Text" Color="Color.Primary" Href="pricing/detail">Meer informatie</MudButton>
-        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/availability">Kies</MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="HandleClick" Href="/booking">Kies</MudButton>
     </MudCardActions>
 </MudCard>
 
 @code {
-    [Parameter] public FormulaDto? Props { get; set; }
-    [Parameter] public string? Image { get; set; }
+    [Parameter] public FormulaDto.Index? Props { get; set; }
+
+    [Inject]
+    IJSRuntime js { get; set; }
+    [Inject] public ISessionStorageService SessionStorage { get; set; } = default!;
+
+    private async Task HandleClick()
+    {
+        var formulaJson = JsonSerializer.Serialize(Props);
+        //await js.InvokeVoidAsync("localStorage.setItem", "chosen_formula", formulaJson);
+        await SessionStorage.SetItemAsync("ChoosenFormula", Props);
+    }
 }
 

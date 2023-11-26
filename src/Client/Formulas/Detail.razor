@@ -1,44 +1,50 @@
-﻿
-@page "/pricing/detail"
-@using Blanche.Client.Formulas.Components
+﻿@page "/pricing/detail"
+@inject NavigationManager NavigationManager
 
-<h3>Pricing detail</h3>
+<div class="detail-container">
+    <div class="formule-detail-container">
+        <h3>Pricing detail</h3>
+
+        <h3>Formule 1: Enkel de foodtruck</h3>
+        <p>
+            1 dag huren: 350 excl 21% btw <br />
+
+            2 dagen huren: 450€ excl 21% btw <br />
+
+            3 dagen huren: 520€ excl 21% <br />
+
+            Elke extra dag: +50€ excl 21%btw
+        </p>
+        <h3>Formule 2: Foodtruck + vat(en) bier. Glazen inbegrepen.</h3>
+        <p>
+            zelfde prijs als formule + een vanaf prijs van 1.5€/persoon, afhankelijk van het type bier ze kiezen. <br />
+            Eventueel kunnen hier al de types bier worden gekozen. Keuze uit 2 types: een normale pils (1.5€/per persoon) of tripel (3€ persoon)
+        </p>
+        <h3>Formule 3: Foodtruck + Vat + bbq</h3>
+        <p>
+            = zelfde prijs als hierboven + vanaf 1.5€/persoon tot 3€/persoon voor bier + 12€/persoon voor bbq burgers <br />
+
+            Inclusief glazen, hout voor bbq, bbq-stel + bbq-kit (tangen,…) <br />
 
 
-<div>
-    <h3>Formule 1: Enkel de foodtruck</h3>
-    <p>
-        1 dag huren: 350 excl 21% btw <br />
 
-        2 dagen huren: 450€ excl 21% btw <br />
+        </p>
+        <p>
+            Vervoerskosten: 0.75€ excl btw per km heen en terug. Eerste 20km in prijs inbegrepen. <br />
 
-        3 dagen huren: 520€ excl 21% <br />
+            Bovenstaande prijzen mogen al zichtbaar zijn op de website en/of tijdens boekingsaanvraag. <br />
 
-        Elke extra dag: +50€ excl 21%btw
-    </p>
-    <h3>Formule 2: Foodtruck + vat(en) bier. Glazen inbegrepen.</h3>
-    <p>
-        zelfde prijs als formule + een vanaf prijs van 1.5€/persoon, afhankelijk van het type bier ze kiezen. <br/>
-        Eventueel kunnen hier al de types bier worden gekozen. Keuze uit 2 types: een normale pils (1.5€/per persoon) of tripel (3€ persoon)
-    </p>
-    <h3>Formule 3: Foodtruck + Vat + bbq</h3>
-    <p>
-        = zelfde prijs als hierboven + vanaf 1.5€/persoon tot 3€/persoon voor bier + 12€/persoon voor bbq burgers <br/>
+        </p>
+        <div class="button-container">
+            <button class="btn btn-primary ms-2 mt-2" @onclick="NavigateBack">keer terug</button>
+        </div>
 
-        Inclusief glazen, hout voor bbq, bbq-stel + bbq-kit (tangen,…) <br/>
-
-        
-
-    </p>
-    <p>
-        Vervoerskosten: 0.75€ excl btw per km heen en terug. Eerste 20km in prijs inbegrepen. <br />
-
-        Bovenstaande prijzen mogen al zichtbaar zijn op de website en/of tijdens boekingsaanvraag. <br />
-    </p>
-
+    </div>
 </div>
 
-@code {
-
+@code{
+    private void NavigateBack()
+{
+        NavigationManager.NavigateTo("/pricing");
 }
-
+}

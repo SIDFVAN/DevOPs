@@ -1,5 +1,4 @@
 ﻿using Blanche.Shared.Products;
-using System.Net;
 using System.Net.Http.Json;
 
 namespace Blanche.Client.Products
@@ -8,34 +7,45 @@ namespace Blanche.Client.Products
     {
         private readonly HttpClient client;
         private const string endPoint = "api/product";
+
         public ProductService(HttpClient httpClient)
         {
             client = httpClient;
         }
-        public async Task<int> CreateAsync(ProductDto productDTO)
+
+        public async Task<IEnumerable<ProductDto>?> GetAllAsync()
         {
-            var response = await client.PostAsJsonAsync(endPoint, productDTO);
-            return await response.Content.ReadFromJsonAsync<int>();
+            var response = await client.GetFromJsonAsync<IEnumerable<ProductDto>?>(endPoint);
+            return response!.ToList();
         }
 
-        public async Task DeleteAsync(int productId)
+        public async Task<ProductDto> GetByIdAsync(Guid productId)
+        {
+            var response = await client.GetFromJsonAsync<ProductDto>($"{endPoint}/{productId}");
+            return response!;
+        }
+
+        public async Task DeleteAsync(Guid productId)
         {
             await client.DeleteAsync($"{endPoint}/{productId}");
         }
 
-        public Task EditAsync(ProductDto productDTO)
+        public async Task<ProductResult.Saved?> CreateAsync(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            var response = await client.PostAsJsonAsync($"{endPoint}", productDto);
+            return await response.Content.ReadFromJsonAsync<ProductResult.Saved?>();
         }
 
-        public Task<IEnumerable<ProductDto>> GetAll()
+        public async Task<ProductResult.Saved?> EditAsync(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            var response = await client.PutAsJsonAsync($"{endPoint}", productDto);
+            return await response.Content.ReadFromJsonAsync<ProductResult.Saved?>();
         }
 
-        public Task<ProductDto> GetById(int productId)
+        public async Task<ProductDto?> EditQuantityInStockAsync(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            var response = await client.PutAsJsonAsync(endPoint, productDto);
+            return await response.Content.ReadFromJsonAsync<ProductDto?>();
         }
     }
 }
