@@ -21,6 +21,7 @@ services:
       - DOTNET_LocalDbPassword=MyStrongPassword123%
     ports:
         - "80:80"
+        - "443:443"
 
  
 
