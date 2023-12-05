@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd /gitrepo 
+
+if [ -n "$(docker ps -f "name=db" -f "status=running" -q )" ] ; then docker rm -f db
+fi
+sleep 5
+
+if [ -n "$(docker ps -f "name=web" -f "status=running" -q )" ] ; then docker rm -f web
+fi
+sleep 5
+
+echo "Building.."
+docker compose build
+#docker-compose -f /gitrepo/docker-compose.yml build
+	
+echo "Testing.."
+dotnet restore /src/Server/Server.csproj
+
+echo 'Docker container down'
+docker compose down
+#docker-compose -f /gitrepo/docker-compose.yml down
+
+echo 'Docker container up'
+docker compose up -d
+#docker-compose -f /gitrepo/docker-compose.yml up -d
+
+chmod +x test.sh
+
+cd -
+#source exit.sh
+
+exit
