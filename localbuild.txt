@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo 'Go to the GIT directory'
+cd /gitrepo 
+$SHELL
+echo 'Remove Containers'
+if [ -n "$(docker ps -f "name=db" -f "status=running" -q )" ] ; then docker rm -f db
+fi
+
+if [ -n "$(docker ps -f "name=web" -f "status=running" -q )" ] ; then docker rm -f web
+fi
+
+echo "Building.."
+docker compose build
+	
+echo "Testing.."
+dotnet restore /gitrepo/src/Server/Server.csproj
+
+echo 'Docker container down'
+docker compose down
+
+echo 'Docker container up'
+docker compose up -d
+
+exit
