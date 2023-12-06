@@ -20,7 +20,7 @@ services:
       - DOTNET_ENVIRONMENT=Production
       - DOTNET_LocalDbPassword=MyStrongPassword123%
     ports:
-        - "80:80"
+        - "90:80"
         - "443:443"
 
  
