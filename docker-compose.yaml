@@ -7,7 +7,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyStrongPassword123%
-        ports:
+    ports:
       - "1444:1433"
 
   web:
