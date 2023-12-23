@@ -1,62 +1,88 @@
-﻿using Blanche.Domain.Reservations;
+﻿using System.Text.Json;
+using Blanche.Domain.Reservations;
+using Blanche.Mappers.Products;
 using Blanche.Mappers.Reservations;
 using Blanche.Server.Persistence;
 using Blanche.Shared.Exceptions;
 using Blanche.Shared.Reservations;
-using Mappers.Reservations;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Blanche.Server.Services.Reservations;
 
 public class ReservationService : IReservationService
 {
     protected readonly IUnitOfWork _unitOfWork;
+    protected IReservationItemService _reservationItemService;
 
-    public ReservationService(IUnitOfWork unitOfWork)
+    public ReservationService(IUnitOfWork unitOfWork, IReservationItemService reservationItemService)
     {
         _unitOfWork = unitOfWork;
+        _reservationItemService = reservationItemService;
     }
 
-    public async Task<ReservationDto?> CreateReservationAsync(ReservationDto reservationDto)
+    public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
     {
-        var reservation = ReservationMapperManual.MapToEntity(reservationDto);
+        var reservation = ReservationMapper.ReservationDtoToReservation(reservationDto);
 
         var duplicateReservation = _unitOfWork.Reservations
             .Queryable()
-            .Where(r => r.StartDate == reservationDto.StartDate && r.EndDate == reservationDto.EndDate)
-            .SingleOrDefault();
+            .SingleOrDefault(r => r.StartDate == reservationDto.StartDate && r.EndDate == reservationDto.EndDate);
 
         if (duplicateReservation != null)
         {
             throw new DuplicateReservationException();
         }
 
+        if (reservation.TypeOfBeer != null)
+        {
+            _unitOfWork.Beers.Update(reservation.TypeOfBeer);
+        }
+        _unitOfWork.Formulas.Update(reservation.Formula);
+
+        foreach (var item in reservation.Items)
+        {
+            _unitOfWork.Products.Add(item.Product = null);
+        }
+
         _unitOfWork.Reservations.Add(reservation);
+
         await _unitOfWork.CommitAsync();
 
-        return ReservationMapperManual.MapToDto(reservation);
+        return reservation.Customer.Id;
     }
 
     public async Task<ReservationDto?> UpdateReservationAsync(ReservationDto reservationDto)
     {
-        var reservation = ReservationMapperManual.MapToEntity(reservationDto);
 
-        var reservationToUpdate = await _unitOfWork.Reservations.GetAsync(r => r.Id == reservationDto.Id) ?? throw new EntityNotFoundException();
+        var result = await GetReservationById(reservationDto.Id);
 
-        reservationToUpdate.StartDate = reservation.StartDate;
-        reservationToUpdate.EndDate = reservation.EndDate;
-        reservationToUpdate.TotalPrice = reservation.TotalPrice;
-        reservationToUpdate.IsConfirmed = reservation.IsConfirmed;
-        reservationToUpdate.NumberOfPersons = reservation.NumberOfPersons;
-        reservationToUpdate.Formula = reservation.Formula;
-        reservationToUpdate.Customer = reservation.Customer;
+        result.StartDate = reservationDto.StartDate;
+        result.EndDate = reservationDto.EndDate;
+        result.TotalPrice = reservationDto.TotalPrice;
+        result.State = reservationDto.State;
+        result.Formula = reservationDto.Formula;
+        result.CustomerId = reservationDto.CustomerId;
+        result.NumberOfPersons = reservationDto.NumberOfPersons;
+        result.TypeOfBeer = reservationDto.TypeOfBeer;
 
-        _unitOfWork.Reservations.Update(reservationToUpdate);
+        foreach (var item in result.Items)
+        {
+            if (!reservationDto.Items.Any(i => i.Id == item.Id))
+            {
+                var itemToDelete = ReservationItemMapper.ReservationItemDtoToReservationItem(item);
+                await _reservationItemService.DeleteAsync(itemToDelete.Id);
+            }
+        }
+
+        var reservation = ReservationMapper.ReservationDtoToReservation(result);
+
+        _unitOfWork.Reservations.Update(reservation);
         await _unitOfWork.CommitAsync();
 
-        return ReservationMapperManual.MapToDto(reservationToUpdate);
+        return ReservationMapper.ReservationToReservationDto(reservation);
     }
-     
+
     public async Task<List<ReservationDto>> GetReservationsByCustomerId(Guid customerId)
     {
         List<ReservationDto> reservationDtos = new();
@@ -70,11 +96,59 @@ public class ReservationService : IReservationService
 
         foreach (var reservation in reservations)
         {
-            var reservationDto = ReservationMapperManual.MapToDto(reservation);
+            await GetReservationItems(reservation);
+            var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
             reservationDtos.Add(reservationDto);
         }
 
         return reservationDtos;
+    }
+
+    public async Task<List<ReservationDto>> GetReservationsByState(ReservationState state)
+    {
+        List<ReservationDto> reservationDtos = new();
+
+        var reservations = await _unitOfWork.Reservations
+            .Queryable()
+            .Where(r => r.State == state)
+            .Include(r => r.Customer)
+            .Include(r => r.Formula)
+            .Include(r => r.TypeOfBeer)
+            .ToListAsync();
+
+        foreach (var reservation in reservations)
+        {
+            await GetReservationItems(reservation);
+            var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
+            reservationDtos.Add(reservationDto);
+        }
+
+        return reservationDtos;
+    }
+
+    public async Task<ReservationDto> GetReservationById(Guid reservationId)
+    {
+        List<ReservationItem> items = new();
+
+        Reservation reservation = await _unitOfWork.Reservations
+            .Queryable()
+            .AsNoTracking()
+            .Where(r => r.Id == reservationId)
+            .Include(r => r.Customer)
+            .Include(r => r.Formula)
+            .SingleOrDefaultAsync() ?? throw new EntityNotFoundException();
+
+        items = await _unitOfWork.ReservationItems
+            .Queryable()
+            .AsNoTracking()
+            .Where(r => r.ReservationId == reservation.Id)
+            .Include(r => r.Product)
+            .ToListAsync();
+
+        reservation.AddItemsToReservation(items);
+
+        var reservationDto = ReservationMapper.ReservationToReservationDto(reservation);
+        return reservationDto;
     }
 
     public async Task<PopularDateDto?> AddPopularDate(PopularDateDto popularDateDto)
@@ -151,39 +225,17 @@ public class ReservationService : IReservationService
         }
     }
 
-    public async Task<List<ReservationDto>> GetOpenReservations()
+    private async Task<Reservation> GetReservationItems(Reservation reservation)
     {
-        List<ReservationDto> reservationDtos = new();
+        List<ReservationItem> items = new();
 
-        var reservations = await _unitOfWork.Reservations
-        .Queryable()
-            .Where(r => r.IsConfirmed == false)
-            .Include(r => r.Customer)
-            .Include(r => r.Formula)
-            .Include(r => r.Lines)
+        items = await _unitOfWork.ReservationItems
+            .Queryable()
+            .Where(r => r.ReservationId == reservation.Id)
+            .Include(r => r.Product)
             .ToListAsync();
 
-        foreach (var reservation in reservations)
-        {
-            var reservationDto = ReservationMapperManual.MapToDto(reservation);
-            reservationDtos.Add(reservationDto);
-        }
-
-        return reservationDtos;
-    }
-
-    public async Task<ReservationDto> GetReservationById(Guid reservationId)
-    {
-        Reservation reservation = await _unitOfWork.Reservations
-            .Queryable()
-            .Where(r => r.Id == reservationId)
-            .Include(r => r.Customer)
-            .Include(r => r.Formula)
-            .Include(r => r.Lines)
-            .SingleOrDefaultAsync() ?? throw new EntityNotFoundException();
-
-        var reservationDto = ReservationMapperManual.MapToDto(reservation);
-        return reservationDto;
-         
+        reservation.AddItemsToReservation(items);
+        return reservation;
     }
 }

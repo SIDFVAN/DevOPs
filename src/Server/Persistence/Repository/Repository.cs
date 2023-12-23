@@ -32,7 +32,10 @@ namespace Blanche.Server.Persistence.Repository
 
         public void Add(T entity)
         {
-            _dbSet.Add(entity);
+            if (entity != null)
+            {
+                _dbSet.Add(entity);
+            }
         }
 
         public void Update(T entity)

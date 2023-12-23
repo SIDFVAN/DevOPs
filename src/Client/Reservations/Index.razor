@@ -1,12 +1,12 @@
 ﻿@page "/availability"
+@page "/availability/{CustomerId:guid}"
 @using Blanche.Client.Reservations.Components
 
 <PageTitle>Blanche</PageTitle>
 
-<div class="nav-menu">
-    <NavMenu />
-</div>
+<Calendar @bind-CustomerId="CustomerId"/>
 
-<img class="bg-img" src="/images/homePage/4.jpg" alt="Homepage background" />
-
-<Calendar />
+@code {
+    [Parameter]
+    public Guid CustomerId { get; set; }
+}

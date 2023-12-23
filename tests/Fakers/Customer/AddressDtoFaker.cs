@@ -2,6 +2,7 @@
 using Bogus;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,14 @@ namespace tests.Fakers.Customer
     {
         public AddressDtoFaker(string locale = "nl") : base(locale)
         {
-            CustomInstantiator(f => AddressDto.Builder()
-            .WithStreet(f.Address.StreetName())
-            .WithHouseNumber(f.Random.Number(1, 999).ToString())
-            .WithPostalCode(f.Address.ZipCode())
-            .WithCity(f.Address.City())
-            .WithCountry(f.Address.Country())
-            .Build());
-
+            CustomInstantiator(f => new AddressDto()
+            {
+                Street = f.Address.StreetName(),
+                Number = f.Random.Number(1, 999).ToString(),
+                PostalCode = f.Address.ZipCode(),
+                City = f.Address.City(),
+                Country = f.Address.Country()
+            });
         }
     }
 }

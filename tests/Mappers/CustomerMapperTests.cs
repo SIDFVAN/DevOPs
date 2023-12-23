@@ -1,9 +1,9 @@
-﻿using Blanche.Domain.Customers.Mappers;
+using Blanche.Domain.Customers.Mappers;
 using Blanche.Domain.Customers; 
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using tests.Fakers.Customer;
 using Blanche.Shared.Customers;
-using Mappers.Customer;
+using Blanche.Mappers.Customers;
 
 namespace tests.Mappers
 {
@@ -32,30 +32,36 @@ namespace tests.Mappers
         public void ToCustomerDto_ShouldMapCorrectly(Customer customer)
         {
             
-            // Arrange and Act
-            CustomerDto result = CustomerMapperManual.MapToDto(customer);
+            // Arrange
+            //CustomerMapper mapper = new CustomerMapper();   
+             
+            // Act
+            CustomerDto result = CustomerMapper.ToCustomerDto(customer);
 
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.FirstName, customer.FirstName);
             Assert.AreEqual(result.LastName, customer.LastName);
             Assert.AreEqual(result.PhoneNumber, customer.PhoneNumber);
-            Assert.AreEqual(result.Email, customer.Email.Value);
+            Assert.AreEqual(result.Email.Value, customer.Email.Value);
         }
 
         [Theory]
         [MemberData(nameof(CustomerDtoTestData))]
         public void ToCustomer_ShouldMapCorrectly(CustomerDto customerDto)
-        { 
-            // Arrange and Act
-            Customer result = CustomerMapperManual.MapToEntity(customerDto);
+        {
+            // Arrange
+            //CustomerMapper mapper = new CustomerMapper();
+
+            // Act
+            Customer result = CustomerMapper.ToCustomer(customerDto);
 
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.FirstName, customerDto.FirstName); 
             Assert.AreEqual(result.LastName, customerDto.LastName);
             Assert.AreEqual(result.PhoneNumber, customerDto.PhoneNumber);
-            Assert.AreEqual(result.Email.Value.ToString(), customerDto.Email.ToString());
+            Assert.AreEqual(result.Email.Value, customerDto.Email.Value);
         }
  
          

@@ -10,7 +10,8 @@ namespace tests.Fakers.Reservations
         {
             CustomInstantiator(f => new ReservationItem(
                 new ProductFaker(locale),
-                f.Random.Int(1, 5)
+                f.Random.Int(1, 5),
+                f.Random.Double(0, 10)
             ));
         }
     }

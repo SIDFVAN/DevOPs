@@ -1,12 +1,11 @@
 ﻿@page "/reservation/{reservationId}/edit"
 
+@using Blanche.Domain.Reservations
 @using Blanche.Shared.Reservations;
+@using Blanche.Shared.Formulas
+@using Blanche.Shared.Products
 @using MudBlazor;
-
-@inject IReservationService ReservationService
-@inject NavigationManager NavigationManager
-
-
+  
 <MudPaper>
     <MudCardContent>
         <MudContainer>
@@ -17,20 +16,49 @@
                     <MudText Typo="Typo.h6">Reservatie</MudText>
                     <MudSpacer />
                     <MudGrid>
-                        <MudItem xs="5" md="6">
-                            <MudTextField Label="Formula" @bind-Value="Reservation.Formula.Name" Variant="Variant.Filled" />
+                        <MudItem xs="2" md="4">
+                            <MudSelect Label="Status" @bind-Value="Reservation.State">
+                                @foreach (ReservationState state in Enum.GetValues(typeof(ReservationState)))
+                                {
+                                    <MudSelectItem Value="@state">@state</MudSelectItem>
+                                }
+                            </MudSelect>
                         </MudItem>
-                        <MudItem xs="2" md="6">
+                        <MudItem s="2" md="8"></MudItem>
+
+                        <MudItem s="2" md="8">
+                            <MudSelect T="FormulaDto.Index" Label="Formule" Placeholder="Kies je formule" @bind-Value="Reservation.Formula"
+                                       Class="mt-10 mb-10" AnchorOrigin="Origin.BottomCenter" For="@(() => Reservation.Formula)">
+                            @foreach (var item in formulas)
+                            {
+                                <MudSelectItem Value="@item">@(item.Name + " " + "(" + item.Description + ")")</MudSelectItem>
+                            }
+                        </MudSelect>
+                        </MudItem>
+                        <MudItem s="2" md="4">
+                            <MudRadioGroup @bind-SelectedOption="Reservation.TypeOfBeer" T="BeerDto"
+                                           Class="mb-5">
+                                @foreach (var beer in beers)
+                                {
+                                    <MudRadio TValue="string" Option="@beer">@beer.Name</MudRadio>
+                                }
+
+                            </MudRadioGroup>
+                        </MudItem>
+                         
+                        <MudItem xs="2" md="3">
                             <MudTextField Label="Number of Persons" @bind-Value="Reservation.NumberOfPersons" Variant="Variant.Filled" />
                         </MudItem>
-                        <MudItem xs="2" md="6">
+                        <MudItem xs="2" md="3">
                             <MudTextField Label="Total Price" @bind-Value="Reservation.TotalPrice" Variant="Variant.Filled" />
                         </MudItem>
-                        <MudItem xs="2" md="6">
-                            <MudSwitch Label="Bevestigen" @bind-Checked="Reservation.IsConfirmed" />
+                        <MudItem xs="2" md="6"></MudItem>
+                        <MudItem xs="2" md="12">
+                            <MudTextField T="string" Label="Notes" Variant="Variant.Text" @bind-Value="Reservation.Notes" Lines="10" />
                         </MudItem>
+                        
                     </MudGrid>
-
+                    <br />
                     <MudText Typo="Typo.h6">Datum</MudText>
                     <MudGrid>
                         <MudSpacer />
@@ -42,37 +70,38 @@
                         </MudItem>
                     </MudGrid>
 
-
+                    <br />
                     <MudText Typo="Typo.h6">Gegevens klant</MudText>
                     <MudSpacer />
                     <MudGrid>
                         <MudItem xs="6" md="6">
-                            <MudTextField Label="Voornaam" @bind-Value="Reservation.Customer.FirstName" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Voornaam" @bind-Value="Reservation.Customer.FirstName" Variant="Variant.Filled" />
                         </MudItem>
                         <MudItem xs="6" md="6">
-                            <MudTextField Label="Naam" @bind-Value="Reservation.Customer.LastName" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Naam" @bind-Value="Reservation.Customer.LastName" Variant="Variant.Filled" />
                         </MudItem>
                         <MudItem xs="12" md="6">
-                            <MudTextField Label="Email" @bind-Value="Reservation.Customer.Email" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Email" @bind-Value="Reservation.Customer.Email.Value" Variant="Variant.Filled" />
                         </MudItem>
                     </MudGrid>
-
+                    <br />
                     <MudText Typo="Typo.h6">Adres klant</MudText>
                     <MudSpacer />
                     <MudGrid>
                         <MudItem xs="10" md="6">
-                            <MudTextField Label="Straat" @bind-Value="Reservation.Customer.CustomerAddress.Street" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Straat" @bind-Value="Reservation.Customer.CustomerAddress.Street" Variant="Variant.Filled" />
                         </MudItem>
                         <MudItem xs="2" md="6">
-                            <MudTextField Label="Nummer" @bind-Value="Reservation.Customer.CustomerAddress.HouseNumber" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Nummer" @bind-Value="Reservation.Customer.CustomerAddress.Number" Variant="Variant.Filled" />
                         </MudItem>
                         <MudItem xs="6" md="6">
-                            <MudTextField Label="Stad" @bind-Value="Reservation.Customer.CustomerAddress.City" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Stad" @bind-Value="Reservation.Customer.CustomerAddress.City" Variant="Variant.Filled" />
                         </MudItem>
                         <MudItem xs="6" md="6">
-                            <MudTextField Label="Postcode" @bind-Value="Reservation.Customer.CustomerAddress.PostalCode" Variant="Variant.Filled" />
+                            <MudTextField ReadOnly=true Label="Postcode" @bind-Value="Reservation.Customer.CustomerAddress.PostalCode" Variant="Variant.Filled" />
                         </MudItem>
                     </MudGrid>
+                    <br />
                     @if (Reservation.Items.Any())
                     {
                         <MudItem xs="12" md="6">
@@ -91,7 +120,7 @@
                                     <MudTd DataLabel="Naam">@context.Product.Name</MudTd>
                                     <MudTd DataLabel="Beschrijving">@context.Product.Description</MudTd>
                                     <MudTd DataLabel="Aantal">@context.Quantity</MudTd>
-                                    <MudTd DataLabel="Prijs">@string.Format("{0:F2}", context.Quantity * context.Product.Price) €</MudTd>
+                                    <MudTd DataLabel="Prijs">@string.Format("{0:F2}", context.Quantity * context.Price) €</MudTd>
                                     <MudTd>
                                         <MudButton @onclick="() => Reservation.Items.Remove(context)">
                                             <MudIcon Icon="@Icons.Material.Filled.Delete" />
@@ -104,8 +133,16 @@
                     }
                     <MudGrid>
                         <MudItem xs="6" md="6">
-                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit">Save Changes</MudButton>
+                            <MudButton Variant="Variant.Filled" 
+                            Color="Color.Primary" OnClick="ConfirmReservation" 
+                            Type="ButtonType.Submit">Bevestigen</MudButton>
                         </MudItem>
+                        <MudItem xs="6" md="6">
+                            <MudButton Variant="Variant.Filled"
+                                       Color="Color.Primary" OnClick="CancelEdit"
+                                       Type="ButtonType.Submit">Annuleer</MudButton>
+                        </MudItem>
+
                     </MudGrid>
                 </MudForm>
             }
@@ -117,29 +154,4 @@
     </MudCardContent>
 </MudPaper>
 
-@code {
-    [Parameter]
-    public string reservationId { get; set; }
 
-    private ReservationDto Reservation;
-    private EditContext EditContext;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Reservation = await ReservationService.GetReservationById(Guid.Parse(reservationId));
-
-        if (Reservation != null)
-        {
-            EditContext = new EditContext(Reservation);
-        }
-    }
-
-    private async Task SaveChanges()
-    {
-        // Save changes to the reservation using your service
-        await ReservationService.UpdateReservationAsync(Reservation);
-
-        // Navigate back to the reservation list page
-        NavigationManager.NavigateTo("/reservations");
-    }
-}

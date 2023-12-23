@@ -13,12 +13,15 @@ namespace Blanche.Server.Persistence.Configurations.Customers
             {
                 // Without this mapping EF Core does not save the properties since they're getters only.
                 // This can be omitted by making them private set, but then you're lying to the domain model.
-                address.Property(x => x.Street);
-                address.Property(x => x.Number);
-                address.Property(x => x.City);
-                address.Property(x => x.Country);
-                address.Property(x => x.PostalCode);
+                address.Property(x => x.Street).HasMaxLength(255);
+                address.Property(x => x.Number).HasMaxLength(10);
+                address.Property(x => x.City).HasMaxLength(255);
+                address.Property(x => x.Country).HasMaxLength(255);
+                address.Property(x => x.PostalCode).HasMaxLength(20);
             });
+            builder.Property(x => x.FirstName).HasMaxLength(255);
+            builder.Property(x => x.LastName).HasMaxLength(255); 
+            builder.Property(x => x.PhoneNumber).HasMaxLength(20);
         }
     }
 

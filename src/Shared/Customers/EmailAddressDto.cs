@@ -1,7 +1,12 @@
-﻿namespace Blanche.Shared.Customers
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Blanche.Shared.Customers
 {
 	public class EmailAddressDto
 	{
-		public string? Value { get; set; }
+        [Required(ErrorMessage = "Email is verplicht!")]
+        [EmailAddress(ErrorMessage = "Geen geldig email adres!")]
+        public string? Value { get; set; }
+		 
 	}
 }

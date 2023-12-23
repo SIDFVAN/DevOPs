@@ -10,8 +10,8 @@ namespace tests.Fakers.Formulas
 			CustomInstantiator(f => new Formula(
 				f.Commerce.ProductName(),
 				f.Lorem.Paragraph(),
-				f.Random.Int(1,1),
-				f.Random.Double(0,250)
+ 				f.Random.Double(0,250),
+				f.Lorem.Lines()
 			));
 		}
 	}

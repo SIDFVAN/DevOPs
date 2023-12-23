@@ -1,27 +1,26 @@
 version: '2'
 
 services:
-  dbdvlp:
+  db:
     image: mcr.microsoft.com/mssql/server:2022-latest 
-    container_name: dbdvlp
+    container_name: db
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=MyStrongPassword123%
+      - MSSQL_SA_PASSWORD=zbklomfps%23%uitr
     ports:
-      - "1444:1433"
+      - "1433:1433"
 
-  webdvlp:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: webdvlp
+    container_name: web
     environment:
-      - DOTNET_ConnectionStrings__SqlDatabase=Server=dbdvlp,1444;Initial Catalog=blanche;User Id=sa;Password=MyStrongPassword123%;
+      - DOTNET_ConnectionStrings__Blanche=Server=db,1433;Initial Catalog=blanche;User Id=sa;Password=MyStrongPassword123%;Encrypt=True;TrustServerCertificate=True;
       - DOTNET_ENVIRONMENT=Production
-      - DOTNET_LocalDbPassword=MyStrongPassword123%
+      - DOTNET_LocalDbPassword=zbklomfps%23%uitr
     ports:
-        - "90:80"
-        - "443:443"
+        - "80:80"
 
  
 

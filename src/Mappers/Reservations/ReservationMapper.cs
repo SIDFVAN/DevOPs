@@ -1,4 +1,4 @@
-﻿using Blanche.Domain.Reservations;
+﻿using Blanche.Domain.Reservations; 
 using Blanche.Shared.Reservations;
 using Riok.Mapperly.Abstractions;
 
@@ -9,6 +9,10 @@ namespace Blanche.Mappers.Reservations
     {
         public static partial ReservationDto ReservationToReservationDto(Reservation reservation);
 
+        //[MapProperty("FormulaName", "Formula.Name")]
+        //public static partial Reservation ReservationDtoToReservation(ReservationDto reservationDto);
+
+        [MapperIgnoreTarget(nameof(Reservation.Invoices))]
         public static partial Reservation ReservationDtoToReservation(ReservationDto reservationDto);
     }
 }

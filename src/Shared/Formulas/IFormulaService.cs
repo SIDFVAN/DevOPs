@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Blanche.Shared.Formulas;
+
 namespace Blanche.Shared.Formulas
 {
-	public class IFormulaService
-	{
-        //Task<IEnumerable<FormuleDTO.Index> GetIndexAsync();
-		//Task DeleteAsync(int Id);
-		//Task<IEnumerable<FormuleDTO.Index>> UpdateIndexAsync();
-	}
+    public interface IFormulaService
+    {
+        Task<List<FormulaDto.Index>> GetIndexAsync();
+        Task<FormulaDto.Detail> GetDetailAsync(Guid formulaId); 
+        Task<Guid> CreateAsync(FormulaDto.Mutate model);
+        Task EditAsync(Guid formulaId, FormulaDto.Mutate model);
+        Task<Guid> DeleteAsync(Guid formulaId);
+
+    }
 }
 

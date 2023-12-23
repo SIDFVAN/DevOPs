@@ -7,18 +7,22 @@ namespace Blanche.Domain.Products
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
-        public string Category { get; set; } = default!;
+        //public string Category { get; set; } = default!;
         public double Price { get; set; } = default!;
-        public string ImageUrl { get; set; } = string.Empty;
-        public int Quantity { get; set; } = default!;
+        public string ImageUrl { get; set; } = default!;
+        public int QuantityInStock { get; set; } = default!;
         public int MinimumUnits { get; set; } = default!;
 
-        public Product(string name, string description, int quantity, double price)
+        public Product() { }
+
+        public Product(string name, string description, int quantity, double price, string imageUrl, int minimumUnits)
         {
-            Name = Guard.Against.NullOrEmpty(name, nameof(Name));
-            Description = Guard.Against.NullOrEmpty(description, nameof(Description));
-            Quantity = Guard.Against.Zero(quantity, nameof(Quantity));
-            Price = Guard.Against.Zero(price, nameof(Price));
+            Name = Guard.Against.NullOrWhiteSpace(name, nameof(Name));
+            Description = Guard.Against.NullOrWhiteSpace(description, nameof(Description));
+            QuantityInStock = Guard.Against.Negative(quantity, nameof(QuantityInStock));
+            Price = Guard.Against.NegativeOrZero(price, nameof(Price));
+            ImageUrl = Guard.Against.NullOrWhiteSpace(imageUrl, nameof(ImageUrl));
+            MinimumUnits = Guard.Against.NegativeOrZero(minimumUnits, nameof(MinimumUnits));
         }
     }
 }
