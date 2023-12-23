@@ -1,0 +1,62 @@
+﻿@model Blanche.Shared.Invoices.InvoiceDto
+@using MudBlazor;
+  
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .confirmation-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+         
+        .thank-you-message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;  
+            margin-bottom: 10px;
+        }
+         
+        .confirmation-container p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+     
+    <div class="confirmation-container">
+         
+        <h2>Factuur @Model.InvoiceNumber</h2>
+        
+        <br> 
+        <p class="thank-you-message">Beste @Model.Reservation.Customer.FirstName, </p>
+        <br>
+        <p>In bijlage kan u het document vinden.</p>
+        <br>
+        <p>Gelieve een voorschot van 20% te betalen (@(((Model.Reservation.TotalPrice * 1.21) * 0.2).ToString("F2")) €).</p>
+        <br>
+        <p>Bij verdere vragen aarzel dan niet om ons te contacteren!</p>
+        <br>
+        <br>
+        <p>Bedankt voor uw vertrouwen in onze service!</p>
+    </div>
+</body>
+ 

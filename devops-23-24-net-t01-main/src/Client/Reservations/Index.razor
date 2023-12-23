@@ -1,0 +1,12 @@
+﻿@page "/availability"
+@page "/availability/{CustomerId:guid}"
+@using Blanche.Client.Reservations.Components
+
+<PageTitle>Blanche</PageTitle>
+
+<Calendar @bind-CustomerId="CustomerId"/>
+
+@code {
+    [Parameter]
+    public Guid CustomerId { get; set; }
+}

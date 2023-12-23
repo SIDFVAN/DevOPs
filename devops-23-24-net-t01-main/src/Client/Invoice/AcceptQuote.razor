@@ -1,0 +1,46 @@
+﻿@page "/quote/{id}/accept"
+
+@using Blanche.Domain.Reservations;
+@using Blanche.Shared.Reservations;
+@using MudBlazor;
+
+
+<MudSnackbarProvider/>
+
+<MudContainer> 
+    <h3>Accepteer Offerte</h3>
+    <MudGrid>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="Start Date" @bind-Value="reservation.StartDate" Variant="Variant.Filled" ReadOnly="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="End Date" @bind-Value="reservation.EndDate" Variant="Variant.Filled" ReadOnly="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="Total Price" @bind-Value="reservation.TotalPrice" Variant="Variant.Filled" ReadOnly="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="Formule" @bind-Value="reservation.Formula.Name" Variant="Variant.Filled" ReadOnly="true" />
+        </MudItem>
+       
+         
+        <MudItem xs="12">
+            <MudTextField  Label="Notes" Variant="Variant.Text" @bind-Value="reservation.Notes" Lines="5" ReadOnly="true" />
+        </MudItem>
+        <MudItem xs="12">
+            @if (acceptanceConfirmed)
+            {
+                <div>
+                    <p>Offerte geaccepteerd!</p> 
+                </div>
+            }
+            else
+            {
+                <MudButton Color="Color.Primary" Variant="Variant.Outlined" OnClick="HandleAcceptQuote">Accepteer offerte</MudButton>
+            }
+        </MudItem>
+    </MudGrid>
+    
+</MudContainer>
+
+

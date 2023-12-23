@@ -1,0 +1,41 @@
+﻿@using MudBlazor;
+
+<MudContainer>
+    <MudDatePicker @ref="@picker"
+                   Date="@date"
+                   TitleDateFormat="dd MMMM"
+                   PickerVariant="PickerVariant.Static"
+                   Orientation="Orientation.Landscape"
+                   Rounded="true"
+                   Color="Color.Default"
+                   Elevation="12"
+                   DisplayMonths="6"
+                   AdditionalDateClassesFunc="@ShowPopularDates"
+                   IsDateDisabledFunc="@DisableBookedDates"
+                   Class="mx-auto">
+        <PickerActions>
+            <MudButton Class="mr-auto ml-6 px-8" Color="Color.Primary" Variant="Variant.Filled" OnClick="@StartBooking">Boek nu</MudButton>
+            <MudChip Class="mr-2 mb-1" Variant="Variant.Outlined" Size="Size.Medium" Color="Color.Dark">Beschikbaar</MudChip>
+            <MudChip Class="mr-2 mb-1" Size="Size.Medium" Color="Color.Tertiary">Uw boeking</MudChip>
+            <MudChip Class="mr-2 mb-1" Variant="Variant.Outlined" Size="Size.Medium" Color="Color.Secondary">Zeer populair</MudChip>
+            <MudChip Class="mr-4 mb-1" Size="Size.Medium" Color="Color.Error">Reeds geboekt</MudChip>
+        </PickerActions>
+    </MudDatePicker>
+</MudContainer>
+
+<style>
+    .special-day {
+        border: solid;
+        border-color: rgba(215, 204, 200, 1) !important;
+    }
+
+    .already-booked {
+        color: white !important;
+        background-color: rgba(239, 83, 80, 0.8) !important;
+    }
+
+    .client-booked {
+        color: white !important;
+        background-color: rgba(251, 192, 45, 0.9) !important;
+    }
+</style>

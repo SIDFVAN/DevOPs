@@ -1,0 +1,349 @@
+﻿@model Blanche.Shared.Invoices.InvoiceDto
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Invoice Template</title>
+    <style>
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            color: #5D6975;
+            text-decoration: underline;
+        }
+
+        body {
+            position: relative;
+            width: 21cm;
+            height: 29.7cm;
+            margin: 0 auto;
+            color: #001028;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-family: Arial;
+        }
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+            #logo img {
+                width: 90px;
+            }
+
+        h1 {
+            border-top: 1px solid #5D6975;
+            border-bottom: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;
+            background: url(dimension.png);
+        }
+
+        #project {
+            float: left;
+        }
+
+            #project span {
+                color: #5D6975;
+                text-align: right;
+                width: 52px;
+                margin-right: 10px;
+                display: inline-block;
+                font-size: 0.8em;
+            }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+            #project div,
+            #company div {
+                white-space: nowrap;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+            table tr:nth-child(2n-1) td {
+                background: #F5F5F5;
+            }
+
+            table th,
+            table td {
+                text-align: center;
+            }
+
+            table th {
+                padding: 5px 20px;
+                color: #5D6975;
+                border-bottom: 1px solid #C1CED9;
+                white-space: nowrap;
+                font-weight: normal;
+            }
+
+            table .service,
+            table .desc {
+                text-align: left;
+            }
+
+            table td {
+                padding: 20px;
+                text-align: right;
+            }
+
+                table td.service,
+                table td.desc {
+                    vertical-align: top;
+                }
+
+                table td.unit,
+                table td.qty,
+                table td.total {
+                    font-size: 1.2em;
+                }
+
+                table td.grand {
+                    border-top: 1px solid #5D6975;
+                    ;
+                }
+
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
+        }
+
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css" media="all" />
+</head>
+<body>
+    <header class="clearfix">
+        <div id="logo">
+            <img src="wwwroot/images/BlancheFavicon.png">
+        </div>
+        @if (!Model.IsQuote)
+        {
+            <h1>Factuur @Model.InvoiceNumber</h1>
+        }
+        else
+        {
+            <h1>Offerte @Model.InvoiceNumber</h1>
+        }
+
+        <div id="company" class="clearfix">
+            <div>BLANCHE Mobiele Bar</div>
+            <div>Willem Dewaele</div>
+            <div>Albert Liénartstraat 19 <br /> 9300 Aalst</div>
+            <div>BTW: 0825.292.925</div>
+            <div><a href="mailto:blanche.rental@gmail.com">blanche.rental@gmail.com</a></div>
+        </div>
+        <div id="project">
+            <div><span>KLANT</span> @Model.Reservation.Customer.FirstName @Model.Reservation.Customer.LastName</div>
+            <div>
+                <span>ADRES</span>
+                @Model.Reservation.Customer.CustomerAddress.Street
+                @Model.Reservation.Customer.CustomerAddress.Number,
+                @Model.Reservation.Customer.CustomerAddress.City
+                @Model.Reservation.Customer.CustomerAddress.PostalCode,
+            </div>
+            <div><span>EMAIL</span> <a href="mailto:@Model.Reservation.Customer.Email.Value">@Model.Reservation.Customer.Email.Value</a></div>
+            <div><span>BTW</span>  @Model.Reservation.Customer.VAT</div>
+            <div><span>DATUM</span> @Model.ConfirmationDate.ToString("dd/MM/yyyy")</div>
+            <div><span>VERVAL</span> @Model.ExpirationDate.ToString("dd/MM/yyyy")</div>
+        </div>
+    </header>
+    <main>
+        @{
+            var TotalPriceCalc = 0.0;
+            var PriceExtraDays = 0.0;
+            var diffOfDates = Math.Max(Model.Reservation.EndDate.Day - Model.Reservation.StartDate.Day, 1);
+
+            var prices = Model.Reservation.Formula.PricePerDays;
+
+            TotalPriceCalc += prices[Math.Min(diffOfDates, 3)];
+
+            if (diffOfDates > prices.Keys.Last())
+            {
+                prices.Values.Last();
+
+                for (int i = 3; i <= diffOfDates; i++)
+                {
+                    PriceExtraDays += Model.Reservation.Formula.PricePerExtraDay;
+                    TotalPriceCalc += Model.Reservation.Formula.PricePerExtraDay;
+                }
+            }
+            if (Model.Reservation.Formula.HasDrinks && Model.Reservation.TypeOfBeer is not null)
+            {
+                double beerPrice;
+                double bbqBurgerPrice;
+
+                beerPrice = Model.Reservation.NumberOfPersons * Model.Reservation.TypeOfBeer.Price;
+
+                if (Model.Reservation.Formula.HasFood)
+                {
+                    bbqBurgerPrice = Model.Reservation.NumberOfPersons * 12;
+                    TotalPriceCalc += bbqBurgerPrice;
+                }
+                TotalPriceCalc += beerPrice;
+            }
+
+            if (Model.Reservation.Items.Any())
+            {
+                double extraProductPrice;
+                double totalProductPrice = 0.0;
+                foreach (var item in Model.Reservation.Items)
+                {
+                    extraProductPrice = item.Quantity * item.Product.Price;
+                    totalProductPrice += extraProductPrice;
+                }
+
+                TotalPriceCalc += totalProductPrice;
+            }
+        }
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="service">Aantal</th>
+                    <th class="service">Eenheid</th>
+                    <th class="desc">Omschrijving</th>
+                    <th>Eenh Prijs (€)</th>
+                    <th>bedrag (€)</th>
+                    <th>BTW</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Math.Min(diffOfDates, 3)</td>
+                    <td>Dag(en)</td>
+                    <td>@Model.Reservation.Formula.Description</td>
+                    <td>@prices[Math.Min(diffOfDates, 3)].ToString("F2") €</td>
+                    <td>@prices[Math.Min(diffOfDates, 3)].ToString("F2") €</td>
+                    <td>21%</td>
+                </tr>
+
+                @if (diffOfDates > prices.Keys.Last())
+                {
+                    <tr>
+                        <td>@(diffOfDates - prices.Keys.Last())</td>
+                        <td>Dag(en)</td>
+                        <td>Extra dagen</td>
+                        <td>@Model.Reservation.Formula.PricePerExtraDay.ToString("F2") €</td>
+                        <td>@PriceExtraDays.ToString("F2") €</td>
+                        <td>21%</td>
+                    </tr>
+                }
+
+                @if (@Model.Reservation.TypeOfBeer != null)
+                {
+                    <tr class="item">
+                        <td>@Model.Reservation.NumberOfPersons</td>
+                        <td>Pers.</td>
+                        <td>@Model.Reservation.TypeOfBeer.Name (@Model.Reservation.TypeOfBeer.Description)</td>
+                        <td>@Model.Reservation.TypeOfBeer.Price.ToString("F2") €</td>
+                        <td>@((Model.Reservation.TypeOfBeer.Price * Model.Reservation.NumberOfPersons).ToString("F2")) €</td>
+                        <td>21%</td>
+                    </tr>
+                }
+
+                @if (@Model.Reservation.Formula.HasFood)
+                {
+                    <tr class="item">
+                        <td>@Model.Reservation.NumberOfPersons</td>
+                        <td>Pers.</td>
+                        <td>Eten</td>
+                        <td>12.00 €</td>
+                        <td>@((12 * Model.Reservation.NumberOfPersons).ToString("F2")) €</td>
+                        <td>21%</td>
+                    </tr>
+                }
+                @foreach (var item in Model.Reservation.Items)
+                {
+                    <tr class="item">
+                        <td>@item.Quantity</td>
+                        <td>Stuk</td>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Product.Price.ToString("F2") €</td>
+                        <td>@((item.Quantity * item.Product.Price).ToString("F2")) €</td>
+                        <td>21%</td>
+                    </tr>
+                }
+
+                @if (Model.Reservation.TotalPrice - TotalPriceCalc < 0)
+                {
+                    <tr class="item">
+                        <td>1</td>
+                        <td></td>
+                        <td>Korting (@(Model.Reservation.TotalPrice) - @(TotalPriceCalc))</td>
+                        <td>@((Model.Reservation.TotalPrice - TotalPriceCalc).ToString("F2")) €</td>
+                        <td>@((Model.Reservation.TotalPrice - TotalPriceCalc).ToString("F2")) €</td>
+                        <td>21%</td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+        <table>
+
+            <tr>
+                <td colspan="6"></td>
+                <td> </td>
+                <td>Total Amount (€)</td>
+                <td>@((Model.Reservation.TotalPrice * 1.21).ToString("F2")) €</td>
+                <td> </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="6"></td>
+                <td> </td>
+                <td>Total Amount (Excl. BTW) (€)</td>
+                <td>@((Model.Reservation.TotalPrice).ToString("F2")) €</td>
+                <td> </td>
+            </tr>
+        </table>
+
+        <div id="notices">
+            <div>Notes:</div>
+            <div class="notice">@Model.Reservation.Notes</div>
+        </div>
+    </main>
+    <footer>
+        Invoice was created on a computer and is valid without the signature and seal.
+    </footer>
+</body>
+</html>
+

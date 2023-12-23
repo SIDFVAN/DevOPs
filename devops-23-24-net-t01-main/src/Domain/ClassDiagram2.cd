@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Blanche.Domain.Customers.Customer">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAEAAAQBAAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <FileName>Customers\Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CustomerAddress" />
+      <Property Name="Email" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Blanche.Domain.Customers.Address">
+    <Position X="12.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAMIEAAAAAAAAIAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Customers\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blanche.Domain.Customers.EmailAddress" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Customers\EmailAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blanche.Domain.Reservations.Reservation">
+    <Position X="7.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEgAAAAAAAACAAAAAgAAAAgAAAARAYACAIABGAAAEA=</HashCode>
+      <FileName>Reservations\Reservation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Customer" />
+      <Property Name="Formula" />
+      <Property Name="TypeOfBeer" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="items" />
+      <Property Name="Invoices" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Blanche.Domain.Reservations.ReservationItem">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Reservations\ReservationItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Blanche.Domain.Products.Product">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQAAAAQAgAAAAAAAAACQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blanche.Domain.Invoices.Invoice">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAABAAAAEgAAAAIAQAIAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Invoices\Invoice.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Reservation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Blanche.Domain.Formulas.Formula">
+    <Position X="4.25" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQACAAQBgAAAAAAAAAQwAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Formulas\Formula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blanche.Domain.Reservations.PopularDate">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Reservations\PopularDate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blanche.Domain.Products.Beer">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Products\Beer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,25 @@
+﻿@using MudBlazor
+@*@using Blazored.FluentValidation*@
+
+<MudText Typo="Typo.h3">Create</MudText>
+
+<EditForm Model="@Beer" OnValidSubmit="CreateBeerAsync">
+
+     <MudTextField T="string" @bind-Value="Beer.Name" For="@(() => Beer.Name)" Label="Name"/>
+    <MudTextField @bind-Value="Beer.Description" For="@(() => Beer.Description)" Label="Description" Lines="3" />
+    <MudNumericField @bind-Value="Beer.Price" For="@(() => Beer.Price)" Label="Price"/>
+
+    <MudCardActions>
+       
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" StartIcon="@Icons.Material.Filled.Save" OnClick="@(() => CreateBeerAsync())">
+            Save
+        </MudButton> 
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Cancel" OnClick="@(()=>Close())">
+            Cancel
+        </MudButton>
+    </MudCardActions>
+</EditForm>
+
+@code {
+
+}

@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid mx-16">
+        <button class="navbar-toggler mt-1" type="button"  @onclick="ToggleNavMenu" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="@collapse navbar-collapse nav-flex-row" id="navbarNav">
+            <ul class="navbar-nav ml-4">
+                <li class="nav-item">
+                    <a class="nav-link ml-1" href="pricing">FORMULES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="availability">BESCHIKBAARHEID</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="extras">EXTRA'S</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">OVER BLANCHE</a>
+                </li>
+                @*<AuthorizeView>
+                    <Authorized>
+                        Hello, @context.User.Identity.Name!
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/reservations">
+                                RESERVATIES BEHEREN
+                            </a>
+                        </li>>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/products">
+                                AANBOD AANPASSEN
+                            </a>
+                        </li>>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" @onclick="BeginSignOut">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span>log out</span>
+                            </a>
+                        </li>>
+                    </Authorized>
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <a class="nav-link" href="authentication/login">LOGIN
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                <span>log in</span>
+                            </a>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>*@
+
+            </ul>
+        </div>
+        <a class="navbar-brand" href="#">
+            <img class="img-fluid" src="/images/homePage/BlancheLogoSmall.png" alt="Blanche logo" />
+        </a>
+    </div>
+</nav>
+
+@code {
+    [Inject] public NavigationManager Navigation { get; set; } = default!;
+    @*[Inject] public SignOutSessionStateManager SignOutManager { get; set; } = default!;*@
+
+    private bool collapseNavMenu = true;
+
+    private string? collapse => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    @*private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }*@
+}

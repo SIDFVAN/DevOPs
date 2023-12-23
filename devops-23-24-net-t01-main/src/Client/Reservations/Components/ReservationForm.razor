@@ -1,0 +1,33 @@
+﻿@page "/booking"
+@using Blanche.Client.Customer.Components
+@using MudBlazor
+
+<ReservationStepper Success="success" Final="final" />
+
+<MudContainer>
+    <MudGrid Class="mt-4">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardContent Class="py-10 px-16">
+                    <ReservationInput @bind-Success="success" @bind-Final="final" />
+                    @if (final && !sent)
+                    {
+                        <CustomerDetail @bind-CustomerId="customerId" @bind-Sent="sent" />
+                    }
+                    else if (final && sent)
+                    {
+                        <MudText Typo="Typo.h5" Class="d-flex justify-center mt-6"><b>Je aanvraag werd succesvol verzonden.</b></MudText>
+                        <MudText Typo="Typo.h6" Class="d-flex justify-center mt-6">Wij behandelen je offerteaanvraag zo spoedig mogelijk en sturen een definitieve offerte via mail.</MudText>
+                    }
+                </MudCardContent>
+                <MudCardActions>
+                    @if (final && sent)
+                    {
+                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary"
+                                   Class="mx-auto ml-4 mb-4" Style="width: 180px;" OnClick="@(() => ClearForm())">Sluit</MudButton>
+                    }
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

@@ -1,0 +1,77 @@
+﻿@using Blanche.Shared.Formulas
+@using MudBlazor
+
+<MudText Typo="Typo.h3">Edit</MudText>
+<MudForm Model="@Formula" @ref="form">
+    <MudTextField @bind-Value="Formula.Name" For="@(() => Formula.Name)" Label="Name" />
+    <MudTextField @bind-Value="Formula.Description" For="@(() => Formula.Description)" Label="Description" Lines="3" />
+
+    <MudCheckBox @bind-Checked="Formula.HasDrinks" For="@(() => Formula.HasDrinks)" Label="Has drinks"></MudCheckBox>
+    <MudCheckBox @bind-Checked="Formula.HasFood" For="@(() => Formula.HasFood)" Label="Has food"></MudCheckBox>
+
+    <MudText Typo="Typo.h5">Set Prices per days</MudText>
+    <MudTable Items="@ListPricePerdays" T="PricePerday">
+        <HeaderContent>
+            <MudTh>Number of days</MudTh>
+            <MudTh>Price</MudTh>
+            <MudTh></MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Days">@context.NumberOfDays</MudTd>
+                <MudTd DataLabel="Price">@context.Price</MudTd>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.ModeEdit" OnClick="@(()=>EditPricePerDay(context))" aria-label="Edit"></MudIconButton>
+                </MudTd>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" OnClick="@(()=>DeletePricePerDay(context))" aria-label="Delete">Delete</MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+
+        <EditForm Model="@NewPricePerDay">
+            <DataAnnotationsValidator />
+            <MudNumericField @bind-Value="NewPricePerDay.NumberOfDays" For="@(() => NewPricePerDay.NumberOfDays)" Label="Number of Days" />
+            <MudNumericField @bind-Value="NewPricePerDay.Price" For="@(() => NewPricePerDay.Price)" Label="Price" />
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" StartIcon="@Icons.Material.Filled.Add" OnClick="@(()=>AddPricePerDay())">
+                    Add
+                </MudButton>
+                <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" StartIcon="@Icons.Material.Filled.Cancel">
+                    Cancel
+                </MudButton>
+            </MudCardActions>
+        </EditForm>
+
+        <MudNumericField @bind-Value="Formula.PricePerExtraDay" For="@(() => Formula.PricePerExtraDay)" Label="Price per extra day" />
+
+        <MudText Typo="Typo.h5">Image in index page</MudText>
+        <ImageCard url="@Formula.ImageUrl" formula="@Formula" />
+
+        @if (string.IsNullOrEmpty(Formula.ImageUrl?.ToString()))
+    {
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadImage" Context="file_context">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           for="@file_context">
+                    Upload Picture
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+    }
+
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" StartIcon="@Icons.Material.Filled.Save" OnClick="@(() => UpdateFormulaAsync())">
+            Save
+        </MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Cancel" OnClick="@(()=>Close())">
+            Cancel
+        </MudButton>
+    </MudCardActions>
+</MudForm>
+
+
+

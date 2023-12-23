@@ -1,0 +1,63 @@
+﻿.slogan {
+    font-family: 'Archivo', sans-serif;
+    margin-top: 8rem;
+    margin-left: 7rem;
+}
+
+h1 {
+    font-family: 'Quicksand black', sans-serif;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 0;
+    animation: my-animation .3s steps(60, end) forwards;
+}
+
+h1:nth-child(2) {
+    opacity: 0;
+    animation-delay: .1s;
+}
+
+h1:nth-child(3) {
+    opacity: 0;
+    animation-delay: .2s;
+}
+
+h1:nth-child(4) {
+    opacity: 0;
+    animation-delay: .3s;
+}
+
+@keyframes my-animation {
+    from {
+        transform: translateX(7%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.blanche {
+    font-family: 'Quicksand black', sans-serif;
+    font-size: 3.5rem;
+    color: rgba(255, 255, 255, .40);
+}
+
+.btn-dark {
+    background-color: black;
+    border-radius: 0;
+    padding: 12px;
+    width: 11rem;
+    font-size: 1.2rem;
+    font-family: 'Quicksand black', sans-serif;
+    margin-top: 6rem;
+    margin-left: 7rem;
+}
+
+    .btn-dark:hover {
+        background-color: white;
+        color: black;
+        border: none;
+    }

@@ -1,0 +1,60 @@
+﻿@model Blanche.Shared.Reservations.ReservationDto
+@using MudBlazor;
+  
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .confirmation-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+         
+        .thank-you-message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;  
+            margin-bottom: 10px;
+        }
+         
+        .confirmation-container p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="confirmation-container">
+        <h2>Reservatie bevestigd voor @Model.Formula.Name</h2>
+        <br>
+        <br>
+        <p class="thank-you-message">Beste @Model.Customer.FirstName, </p>
+        <br>
+        <p>Bedankt voor uw reservatie!</p>
+        <p>Uw reservatie voor @Model.StartDate.ToString("dd/MM/yyyy") - @Model.EndDate.ToString("dd/MM/yyyy") is afgehandeld. </p>
+        <p>Wij zetten alles klaar zodat u deze kan ophalen. </p>
+        <br>
+        <p>Bij verdere vragen aarzel dan niet om ons te contacteren!</p>
+        <br>
+        <br>
+        <p>Bedankt voor uw vertrouwen in onze service!</p>
+    </div>
+</body>
+ 
